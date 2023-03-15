@@ -187,7 +187,7 @@ class View(object):
     
         Tournament(name,quand)
         
-    def afficher_tournois():
+    def afficher_tournois(self):
         for index, Tournament in enumerate(list_tournois):
             print(f"Le tournois '{Tournament.name}'; qui aura lieu ='{Tournament.address}; le  ='{Tournament.start}'; et finira le  = '{Tournament.end}'")
 
@@ -243,7 +243,7 @@ class View(object):
         print(f"le tournois {name} aura lieu le {date}")
         print("Super ta vue ce que tu voulais ? Nice. On peut passer au chose suivante")
         
-
+    
     
     
 # fire une classe vue ou je met toute mes method de dans
@@ -251,7 +251,7 @@ class View(object):
 
 
 
-list_player_uno = []
+
 
 list_tournois = [
     

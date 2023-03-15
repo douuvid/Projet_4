@@ -23,4 +23,6 @@ class Controler:
     def get_list_players(self):
         return self.player_manager.list_player
         
+        
+    
     
