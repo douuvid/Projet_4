@@ -24,5 +24,7 @@ class Controler:
         return self.player_manager.list_player
         
         
-    
+    def save(self):
+        self.player_manager.save()
+        
     

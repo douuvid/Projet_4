@@ -62,26 +62,33 @@ class View(object):
     def menu(self,welcome):
     
         if  welcome :
-            print("Salut fdp, tu es dans lme menue qui te facilitera surement ton travail" )
+            print("Salut fdp, tu es dans lme menu qui te facilitera surement ton travail" )
         print("Tu as le choix entre : ") 
-        print("1 : joueur")
+        print("1: joueur")
         print("2: tournois")
         print("3: Histoirque des joueurs et des maths ")
         print("4: connaitre quand aura lieux le match de ton choix  ")
+        print("5: Sauvegarde")
         choose = input("Fait ton choix (met un chiffre)")
         
         if choose == "1":
-        # print("ok super te voila dans le menue des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
-            self.player_menue()
+        # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
+            self.player_menu()
         elif choose == "2":
-            print("ok super te voila dans le menue des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
-                    
+            print("ok super te voila dans le menu des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
+            self.creer_tournament()
         elif choose == "3":
-            print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
-            ## faire le menue des 3 categories 
             
-        # elif choose == "4":
-        #     display_name_and_date()
+            print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
+            ## faire le menu des 3 categories =
+            #l'idee serait de pouvoir recupere les info d'un joueur precis ?
+            
+            
+        elif choose == "4":
+             self.display_name_and_date()
+        elif choose =="5":
+            self.controler.save()
+            print("Ca a bien ete sauvegarder")
         else:
             print("Ce choix n'est pas dispo")
             
@@ -89,7 +96,7 @@ class View(object):
         #Rajoter une categorie sauvegarder
 
 
-    def player_menue(self):
+    def player_menu(self):
         # Consulter ou Creer joueur
         print ("1 : Consulter ")
         print("2 : Creation  ")
@@ -106,28 +113,24 @@ class View(object):
             
         
         if choose == "2":
-            print("te voila dans le menue creation fdp, ta cru on etait dans un jeux video ")
+            print("te voila dans le menu creation fdp, ta cru on etait dans un jeux video ")
             self.player_creation()
 
 
 
     def player_creation(self):
-        name = input("Name")
+        name = input("Name: ")
         first_name = input("first_name")
-        id= input('ID')
-        born = input("Born")
+        id= input('ID: ')
+        born = input("Born: ")
         self.controler.add_player(name, first_name, born,id)
-        
-        
         print("Ton joueur a ete crer fdp")
-        
-
-        self.player_menue()
+        self.player_menu()
         
         
         
     def ask_adress(self):
-        adress = input("Quelle est l'adress : ")
+        adress = input("Quelle est l'adress: ")
         if adress == "":
             print("Veuillez indiquer un nom")
             return None
@@ -140,7 +143,7 @@ class View(object):
     # def menu(self,welcome):
     
     #     if  welcome :
-    #         print("Salut fdp, tu es dans lme menue qui te facilitera surement ton travail" )
+    #         print("Salut fdp, tu es dans lme menu qui te facilitera surement ton travail" )
     #     print("Tu as le choix entre : ") 
     #     print("1 : joueur")
     #     print("2: tournois")
@@ -148,14 +151,14 @@ class View(object):
     #     choose = input("Fait ton choix (met un chiffre)")
     
     #     if choose == "1":
-    #     # print("ok super te voila dans le menue des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
-    #         player_menue()
+    #     # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
+    #         player_menu()
     #     elif choose == "2":
-    #         print("ok super te voila dans le menue des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
+    #         print("ok super te voila dans le menu des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
                     
     #     elif choose == "3":
     #         print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
-    #         ## faire le menue des 3 categories 
+    #         ## faire le menu des 3 categories 
     #     else:
     #         print("Ce choix n'est pas dispo")
             
@@ -164,14 +167,14 @@ class View(object):
     # def consulter_player(self):
     #     for index, player in enumerate(list_player):
     #         print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
-    #     self.back_to_menue_or_creation()
+    #     self.back_to_menu_or_creation()
     
     def creer_tournament(self):
         name = self.ask_name()
         quand = self.date_event("Ca commence quand fdp ?")
         Tournament(name,quand)
         
-    def back_to_menue_or_creation(self):
+    def back_to_menu_or_creation(self):
         print("")
         reponse = input("Souhaite tu consulter d'autre joueurs: yes ou no ?")
         
@@ -179,7 +182,7 @@ class View(object):
             self.consulter_player()
 
         elif reponse =="no":
-            self.player_menue()
+            self.player_menu()
             
     def creer_tournament(self):
         name = self.ask_name()
@@ -195,7 +198,7 @@ class View(object):
     def consulter_player(self):
         for index, player in enumerate(self.controler.get_list_players()):
             print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
-        self.player_menue()
+        self.player_menu()
     #name_liste_des_joueur_creer =liste_joueur_creer[0]
     
    #liste_des_joueurs = ["Hector","David", "Brian"]  #rajouter nom et/ou ID ; il faut stocker 
@@ -207,18 +210,18 @@ class View(object):
     # if choose == 'Hector':
     #     hector = Player(name ="Roulias", first_name ="Hector", born= "11/11/2011",id="AB23333")
     #     print("Nom :"+hector.name, "Prenom " +hector.first_name, "ID :"+hector.id, "Né le : "+ hector.born)
-    #     back_to_menue_or_creation()
+    #     back_to_menu_or_creation()
         
     # elif choose == "David":
     #     david = Player(name="ROLLAS ",first_name="David ",born="22/22/2012",id="AB2333")
     #     print("Prenom " +david.first_name,"Nom :"+david.name,"Né le : "+david.born, "ID :"+david.id)
     #     print("")
-    #     back_to_menue_or_creation()
+    #     back_to_menu_or_creation()
         
     # elif choose == "Brian":
     #     brian = Player("Kollos","Brian", "12/02/1999","AB23333")
     #     print("Nom :"+brian.name, "Prenom " +brian.first_name,"Né le : "+brian.born,"ID :"+brian.id)
-    #     back_to_menue_or_creation()
+    #     back_to_menu_or_creation()
     
     
     
@@ -250,7 +253,15 @@ class View(object):
 #==> mettre dans le init de ma view il y a ura la creation de l'instance du controler => self.controler= controler
 
 
-
+def data_name(self, name, ):
+    print("Tu souhaites connaitres toutes les info sur un joueur ?")
+    print("Rentre son nom juste en bas ")
+    
+    name 
+    
+    
+    
+    
 
 
 list_tournois = [
@@ -259,7 +270,7 @@ list_tournois = [
 
 ]
 
-    
+
     
 
 

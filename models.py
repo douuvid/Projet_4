@@ -4,19 +4,51 @@ import json
 
 class Tournament():
     
-    def __init__(self,name,address,start,end,nb_rounds = 4 ,description = ""): # les element necessaire pour creer un tournois (obligatoire)
+    def __init__(self,name,address,start,end,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0): # les element necessaire pour creer un tournois (obligatoire)
         self.name = name
         self.address = address
         self.start = start
         self.end = end
         self.nb_rounds= nb_rounds
         self.description = description
-        self.round_list = []
-        self.players = []
-        self.index_current_round = 0
+        self.round_list = round_list
+        self.players = players
+        self.index_current_round = index_current_round
         # ceux qui a l 'interieur sont tous les attribut (variable) qu'on stockera 
         
-        #P
+    def to_dict(self):
+        #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire il vont aller dans round list
+        print(self.players )
+        print(self.round_list)
+        dico= {"name": self.name,  
+                    "address":self.address, 
+        "start":self.start,
+        "end":self.end, 
+        "nb_rounds":self.nb_rounds,
+        "description":self.description, 
+        "round_list":[round.to_dict()for round in self.round_list], 
+        "players": [ player.to_dict()for player in self.players], 
+        
+        #newlist = [x.upper() for x in fruits] 
+        "index_current_round":self.index_current_round }
+        
+        return dico
+    
+    
+    @classmethod
+    def from_dict(self,dict):
+        print(dict)
+        #condition pour player et un round
+        
+        if "id" in  dict:
+            return Player.from_dict(dict)
+        
+        if "matchs" in dict:
+            return Round.from_dict(dict)
+        return Tournament( dict["name"],dict["address"],dict["start"],dict["end"],dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"])
+    
+   
+            
         
     def register_player(self,player):
         for pl in self.players:
@@ -46,14 +78,7 @@ class TournamentManager():
         try:
             save_file = open (self.save_file_name ,"w+")
         
-
-            new_list= []
-            
-            for element in self.list_tournaments:
-                
-                new_list.append(element.__dict__)
-        
-            json.dump(new_list,save_file)
+            json.dump([tournament.to_dict()for tournament in self.list_tournaments],save_file)
         
             save_file.close()
         
@@ -77,24 +102,27 @@ class TournamentManager():
             save_file = open (self.save_file_name,"r")
         
             
-            self.list_tournaments = json.load(save_file, object_hook= lambda dict:(dict["name"],dict["first_name"],dict["born"],dict["id"]))
+            self.list_tournaments = json.load(save_file, object_hook= lambda dict: Tournament.from_dict(dict))
             save_file.close()
         
         except Exception as error:
             print("Error loading tournament info : ",error)
         
         pass
+    
+    
 
 
 
 
 
 class Round(object):# capable de faire 
-    def __init__(self,round=1):
-        self.matchs = []
-        self.start = None
-        self.end = None
-        self.name= "Round " + str(round)
+    def __init__(self,name,matchs= [],start= None,end = None):
+        self.matchs = matchs
+        self.start = start
+        self.end = end
+        self.name= name
+        
         
         
         
@@ -104,9 +132,31 @@ class Round(object):# capable de faire
         _match =(playerA,playerB) 
         self.matchs.append(_match)
         
+    def count_points(self,player_win):
+        #faire une fonction qui compte les poiint 
+        pass
+    
+    def to_dict(self):
+        dico= {"name": self.name,  
+                    "matchs":self.matchs, 
+        "start":self.start,
+        "end":self.end, 
+        }
+
+        return dico
+    @classmethod    
+    def from_dict(self,dict):
+        return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
         
+        
+
+            
+            
+
+    
     def start(self):
         self.start= datetime.now()
+        pass
         
 
         
@@ -122,12 +172,6 @@ class Round(object):# capable de faire
     #rajouter une methode news round 
     # comptabilite les point 
     
-
-
-
-
-
-
 class Player():
         
     def __init__(self,name,first_name,born,id):
@@ -136,11 +180,28 @@ class Player():
             self.id = id
             self.born = born
             
+            
     def __str__(self):
         return f"{self.name},{self.first_name},{self.id}{self.born}"
     
     def __repr__(self):
         return f"< Player name:{self.name} first_name:{self.first_name} id:{self.id} born:{self.born} >"
+    
+    def to_dict(self):
+        #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire il vont aller dans round list
+
+        dico= {"name": self.name,  
+                    "first_name":self.first_name, 
+        "id":self.id,
+        "born":self.born,
+        }
+
+        return dico
+    @classmethod
+    def from_dict(self,dict):
+        return Player(dict["name"],dict["first_name"],dict["born"],dict["id"])
+        
+        
 
 
 
@@ -154,6 +215,8 @@ class PlayerManager():
             # Player(name="Rollas ",first_name="David ",born="22/22/2012",id="AB2333"),  
             # Player("Kollos","Brian", "12/02/1999","AB233")
             ]
+        
+        
         self.load()
         
         
@@ -161,15 +224,9 @@ class PlayerManager():
     
         try:
             save_file = open (self.save_file_name ,"w+")
+    
         
-
-            new_list= []
-            
-            for element in self.list_player:
-                
-                new_list.append(element.__dict__)
-        
-            json.dump(new_list,save_file)
+            json.dump([player.to_dict() for player in self.list_player],save_file)
         
             save_file.close()
         
@@ -193,7 +250,8 @@ class PlayerManager():
             save_file = open (self.save_file_name,"r")
         
             
-            self.list_player = json.load(save_file, object_hook= lambda dict:Player(dict["name"],dict["first_name"],dict["born"],dict["id"]))
+            self.list_player = json.load(save_file, object_hook= lambda dict: Player.from_dict(dict))
+                                         
             save_file.close()
         
         except Exception as error:
@@ -201,8 +259,20 @@ class PlayerManager():
         
     #au lieu d'avoir un tableau de player avoir un tableau de dictionnaire dans la fonction save 
         
+        
+    
 
     
 
 
+joueur = Player("DAVV","rAVO", "12/12/2000", "293847")
+player_manager =PlayerManager()
+player_manager.add_player(joueur)
+player_manager.save()
 
+
+tournois= Tournament("rollan","nohio","12/12/2026","12/12/2046","3","vtoenv")
+tournois.register_player(joueur)
+tournament_manager =TournamentManager()
+tournament_manager.add_tournament(tournois)
+tournament_manager.save()

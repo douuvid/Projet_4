@@ -450,24 +450,7 @@ Ici on a creer la class joueur pour pouvoir la reutiliser plus tard quand on vou
 
 if __name__ == "__main__":
 
-    list_player= [
-        Player(name ="Roulias", first_name ="Hector", born= "11/11/2011",id="AB23333"),
-        Player(name="Rollas ",first_name="David ",born="22/22/2012",id="AB2333"),  
-        Player("Kollos","Brian", "12/02/1999","AB23333")
-    ]
-
-
-
-
-
-    list_player_uno = []
-
-    list_tournois = [
-        
-        Tournament(name = "", address= "", start= "", end= "", )
-
-    ]
-
     view = View()
+    while True:
+        view.menu(True)
 
-    view.menu(True)
