@@ -1,20 +1,122 @@
 from datetime import datetime
-
-import random
+import sys
+from collections.abc import Callable
 from controler import Controler
+from models import Tournament
 
-from models import Player, Tournament
-
-
+# Gérer les tournois: création d'un tournoi, afficher la liste des tournois
+# Gérer la sauvegarde et le rechargement des tournois, comme pour les joueurs
+# Gérer l'ajout de joueurs dans un tournoi
+# Faire évoluer la sauvegarde/rechargement des tournois en ajoutant la sauvegarde/rechargement des joueurs des tournois
 
 class View(object): 
     
     def __init__(self):
         self.controler = Controler()
         
+    def menu(self,welcome=False):
+    
+        if  welcome :
+            print("Salut fdp, tu es dans le menu qui te facilitera surement ton travail" )
+        print("Tu as le choix entre : ") 
+        print("1: joueur")
+        print("2: tournois")
+        print("3: Histoirque des joueurs et des maths ")
+        print("4: connaitre quand aura lieux le match de ton choix  ")
+        print("5: Sauvegarde")
+        choose = input("Fait ton choix (met un chiffre)")
+        
+        if choose == "1":
+        # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
+            self.player_menu()
+        elif choose == "2":
+            print("\nOk super te voila dans le menu des tournois tu as le choix entre : \n")
+            print("\n1 :Creer un tournois  \n")
+            print("\n2: Consulter un tournois fdp \n ")
+            choose = input("Indique ton choix")
+            if choose == "1":
+                self.debut_tournois()
+            elif choose == "2":
+                self.consulter_tournois()
+            
+            
+        elif choose == "3":
+            
+            print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
+            ## faire le menu des 3 categories =
+            #l'idee serait de pouvoir recupere les info d'un joueur precis ?
+
+        elif choose == "4":
+             self.display_name_and_date()
+        elif choose =="5":
+            self.controler.save()
+            print("\nCa a bien ete sauvegarde \n")
+            
+        else:
+            self.exit_back(choose,sys.exit)
+            
+    
+    def player_menu(self):
+        # Consulter ou Creer joueur
+        print ("\n1 : Consulter\n")
+        print("\n2 : Creation \n")
+        print(" \n3 : Recherche par identifiant\n")
+        print("")
+        choose = input("Ta le choix entre consulter ou creer fdp (pas les deux en meme temps) ")
+        
+        if choose == "1":
+            print("")
+            self.consulter_player()
+            
+        elif choose == "2":
+            print("te voila dans le menu creation fdp, ta cru on etait dans un jeux video ")
+            self.player_creation() 
+    
+        elif choose == "3":
+            self.player_data()
+        else:
+            self.exit_back(choose, self.menu)
+            
+    def consulter_player(self):
+        list_player= self.controler.get_list_players()
+        for index,player in enumerate(list_player):
+            print(f"{index + 1}. first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
+        print(f"Il y a {len(list_player)}  joueur(s) enregistré(s) ")
+        self.player_menu()
+        
+    
+    def player_creation(self):
+        name = input("Name: ")
+        first_name = input("first_name")
+        id= input('ID: ')
+        born = input("Born: ")
+        try:
+            self.controler.add_player(name, first_name, born,id)
+            print(f"Ton joueur : {name} avec l'id :{id} a ete crée fdp")
+        
+        except Exception as error:
+            print("Impossible de creer le joueur : ",error)
+            
+        self.player_menu()
+    
+    def player_data(self,):
+        print("Tu souhaites connaitres toutes les info sur un joueur ?")
+        id= input("Rentre son id juste en bas ")
+        try:
+            
+            player =self.controler.get_player_by_id(id)
+            print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
+        except Exception as error:
+            print("Impossible d'afficher les données du joueur : ",error)
+        self.player_menu()
+    
+    
+    def tournament_menu(self):
+        print("\n Ok te voila dans le menue tournois\n")
+        
     
     def debut_tournois(self):#
-        print("Entre les info pour la creation d'un tournois fdp ")
+        print("\nEntre les info pour la creation d'un tournois fdp \n")
         
         name, start, end, address = None, None, None, None
         while name == None:
@@ -30,8 +132,8 @@ class View(object):
             print(f"C'est bien fdp ta initialiser le tournois sous le nom de {name} qui commencera le '{start}'et se terminera le '{end}'; ".format(name,start,end))
             while address == None:
                 address = self.ask_adress()
-        #self.controler.create_tournament(name,start,end,address)    
-        self.controler.create_tournament(name = name ,start = start,end=end,address = address) 
+        self.controler.create_tournament(name,start,end,address)    
+        #self.controler.create_tournament(name = name ,start = start,end=end,address = address) 
     
     def ask_name(self):
         name = input("Nom : ")
@@ -59,175 +161,28 @@ class View(object):
             return None
         return event
     
-    def menu(self,welcome):
-    
-        if  welcome :
-            print("Salut fdp, tu es dans lme menu qui te facilitera surement ton travail" )
-        print("Tu as le choix entre : ") 
-        print("1: joueur")
-        print("2: tournois")
-        print("3: Histoirque des joueurs et des maths ")
-        print("4: connaitre quand aura lieux le match de ton choix  ")
-        print("5: Sauvegarde")
-        choose = input("Fait ton choix (met un chiffre)")
-        
-        if choose == "1":
-        # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
-            self.player_menu()
-        elif choose == "2":
-            print("ok super te voila dans le menu des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
-            self.creer_tournament()
-        elif choose == "3":
-            
-            print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
-            ## faire le menu des 3 categories =
-            #l'idee serait de pouvoir recupere les info d'un joueur precis ?
-            
-            
-        elif choose == "4":
-             self.display_name_and_date()
-        elif choose =="5":
-            self.controler.save()
-            print("Ca a bien ete sauvegarder")
-        else:
-            print("Ce choix n'est pas dispo")
-            
-            
-        #Rajoter une categorie sauvegarder
-
-
-    def player_menu(self):
-        # Consulter ou Creer joueur
-        print ("1 : Consulter ")
-        print("2 : Creation  ")
-        print("")
-        choose = input("Ta le choix entre consulter ou creer fdp (pas les deux en meme temps) ")
-        
-        if choose == "1":
-            print("")
-            
-            print("Ok tu as fait le choix de consulter ")
-            self.consulter_player()
-            
-            
-            
-        
-        if choose == "2":
-            print("te voila dans le menu creation fdp, ta cru on etait dans un jeux video ")
-            self.player_creation()
-
-
-
-    def player_creation(self):
-        name = input("Name: ")
-        first_name = input("first_name")
-        id= input('ID: ')
-        born = input("Born: ")
-        self.controler.add_player(name, first_name, born,id)
-        print("Ton joueur a ete crer fdp")
-        self.player_menu()
-        
-        
-        
     def ask_adress(self):
-        adress = input("Quelle est l'adress: ")
-        if adress == "":
+        address = input("Quelle est l'adress: ")
+        if address == "":
             print("Veuillez indiquer un nom")
             return None
-        if len(adress) >= 100:
+        if len(address) >= 100:
             print("Le nom est trop long (limité a 99 caracteres)")
             return None
-        # tester nom disponible
-        return adress
+        return address
 
-    # def menu(self,welcome):
-    
-    #     if  welcome :
-    #         print("Salut fdp, tu es dans lme menu qui te facilitera surement ton travail" )
-    #     print("Tu as le choix entre : ") 
-    #     print("1 : joueur")
-    #     print("2: tournois")
-    #     print("3: Histoirque des joueurs et des maths ")
-    #     choose = input("Fait ton choix (met un chiffre)")
-    
-    #     if choose == "1":
-    #     # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
-    #         player_menu()
-    #     elif choose == "2":
-    #         print("ok super te voila dans le menu des tournois . Tu pourras cree tes tournois  en indiquant son nom et les tours ou consulter fdp ")
-                    
-    #     elif choose == "3":
-    #         print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
-    #         ## faire le menu des 3 categories 
-    #     else:
-    #         print("Ce choix n'est pas dispo")
-            
         
     #Rajoter une categorie sauvegarder
     # def consulter_player(self):
-    #     for index, player in enumerate(list_player):
+    #     for index, player in enumerate(self.controler.list_player):
     #         print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
     #     self.back_to_menu_or_creation()
     
-    def creer_tournament(self):
-        name = self.ask_name()
-        quand = self.date_event("Ca commence quand fdp ?")
-        Tournament(name,quand)
-        
-    def back_to_menu_or_creation(self):
-        print("")
-        reponse = input("Souhaite tu consulter d'autre joueurs: yes ou no ?")
-        
-        if reponse == "yes":
-            self.consulter_player()
-
-        elif reponse =="no":
-            self.player_menu()
-            
-    def creer_tournament(self):
-        name = self.ask_name()
-        quand = self.date_event("Ca commence quand fdp ?")
-    
-        Tournament(name,quand)
-        
-    def afficher_tournois(self):
-        for index, Tournament in enumerate(list_tournois):
+    def consulter_tournois(self):
+        for index, Tournament in enumerate(self.controler.get_list_tournement()): #
             print(f"Le tournois '{Tournament.name}'; qui aura lieu ='{Tournament.address}; le  ='{Tournament.start}'; et finira le  = '{Tournament.end}'")
-
+            pass
     
-    def consulter_player(self):
-        for index, player in enumerate(self.controler.get_list_players()):
-            print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
-        self.player_menu()
-    #name_liste_des_joueur_creer =liste_joueur_creer[0]
-    
-   #liste_des_joueurs = ["Hector","David", "Brian"]  #rajouter nom et/ou ID ; il faut stocker 
-    #liste_des_joueurs.append(name_liste_des_joueur_creer)
-    #print(*liste_des_joueurs)
-    
-    
-    #choose = input("selectionne un joueur ")
-    # if choose == 'Hector':
-    #     hector = Player(name ="Roulias", first_name ="Hector", born= "11/11/2011",id="AB23333")
-    #     print("Nom :"+hector.name, "Prenom " +hector.first_name, "ID :"+hector.id, "Né le : "+ hector.born)
-    #     back_to_menu_or_creation()
-        
-    # elif choose == "David":
-    #     david = Player(name="ROLLAS ",first_name="David ",born="22/22/2012",id="AB2333")
-    #     print("Prenom " +david.first_name,"Nom :"+david.name,"Né le : "+david.born, "ID :"+david.id)
-    #     print("")
-    #     back_to_menu_or_creation()
-        
-    # elif choose == "Brian":
-    #     brian = Player("Kollos","Brian", "12/02/1999","AB23333")
-    #     print("Nom :"+brian.name, "Prenom " +brian.first_name,"Né le : "+brian.born,"ID :"+brian.id)
-    #     back_to_menu_or_creation()
-    
-    
-    
-        
-    # Une fois qu'il a consulter il retourne en arriere pl
-  
     def display_name_and_date(self):
     # ● nom et dates d’un tournoi donné ;
     # faire un disctionnaire
@@ -235,41 +190,29 @@ class View(object):
         #et je trouve tout les infio lié au tournois 
         print("Tu souhaites savoir quand est ce qu'aura lieu un tournois ?")
         print("Rentre son nom juste en bas ")
-        tournoi = input("Nom du tournois  ")
         
-        result = {}
-    
         name = self.ask_name(name)
-        date = self.date_event()
-    #
-        result[name] = date
-        print(f"le tournois {name} aura lieu le {date}")
-        print("Super ta vue ce que tu voulais ? Nice. On peut passer au chose suivante")
-        
-    
-    
-    
-# fire une classe vue ou je met toute mes method de dans
-#==> mettre dans le init de ma view il y a ura la creation de l'instance du controler => self.controler= controler
-
-
-def data_name(self, name, ):
-    print("Tu souhaites connaitres toutes les info sur un joueur ?")
-    print("Rentre son nom juste en bas ")
-    
-    name 
-    
+        #FIXME : FINIR IMPORTANT 
+        # result[name] = date#
+        # print(f"le tournois {name} aura lieu le {date}")
+        # print("Super ta vue ce que tu voulais ? Nice. On peut passer au chose suivante")
+        pass
     
     
     
 
-
-list_tournois = [
+   
     
-    Tournament(name = "", address= "", start= "", end= "", )
-
-]
-
+    
+    
+    def exit_back(self,choose:str,back:Callable):
+        if choose == "exit" :
+            sys.exit()
+        elif choose == "back":
+            back()
+            
+        else:
+            print("\nCe choix n'est pas dispo ou n'existe pas \n")
 
     
 

@@ -18,8 +18,7 @@ class Tournament():
         
     def to_dict(self):
         #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire il vont aller dans round list
-        print(self.players )
-        print(self.round_list)
+        
         dico= {"name": self.name,  
                     "address":self.address, 
         "start":self.start,
@@ -37,7 +36,7 @@ class Tournament():
     
     @classmethod
     def from_dict(self,dict):
-        print(dict)
+        
         #condition pour player et un round
         
         if "id" in  dict:
@@ -53,8 +52,7 @@ class Tournament():
     def register_player(self,player):
         for pl in self.players:
             if pl.id == player.id: ## 
-                print("le joueur avec l'id "+ player.id +" est deja inscrit ")
-                return 
+                raise Exception("le joueur avec l'id "+ player.id +" est deja inscrit ")
         self.players.append(player)
     ######è
     
@@ -67,14 +65,11 @@ class TournamentManager():
     def __init__(self,save_file_name= "tournaments.json"):
     
         self.save_file_name = save_file_name
-        self.list_tournaments= [
-        
-        ]
+        self.list_tournaments= []
         self.load()
         
         
     def save(self):
-    
         try:
             save_file = open (self.save_file_name ,"w+")
         
@@ -83,7 +78,9 @@ class TournamentManager():
             save_file.close()
         
         except Exception as error:
-            print("Error saving tournament info : ",error)
+            raise Exception ("Error saving tournament info : ",error)
+        
+        
         
     # penser a ferme le fichier
     
@@ -236,7 +233,10 @@ class PlayerManager():
     # penser a ferme le fichier
     
     def add_player(self, player):
-    
+        for pl in self.list_player:
+            if pl.id == player.id:
+                raise Exception (f"Le joueur avec {pl.id} existe deja ")
+                
         self.list_player.append(player)
     
     def trier(self): 
@@ -265,14 +265,14 @@ class PlayerManager():
     
 
 
-joueur = Player("DAVV","rAVO", "12/12/2000", "293847")
-player_manager =PlayerManager()
-player_manager.add_player(joueur)
-player_manager.save()
+# joueur = Player("DAVV","rAVO", "12/12/2000", "293847")
+# player_manager =PlayerManager()
+# player_manager.add_player(joueur)
+# player_manager.save()
 
 
-tournois= Tournament("rollan","nohio","12/12/2026","12/12/2046","3","vtoenv")
-tournois.register_player(joueur)
-tournament_manager =TournamentManager()
-tournament_manager.add_tournament(tournois)
-tournament_manager.save()
+# tournois= Tournament("rollan","nohio","12/12/2026","12/12/2046","3","vtoenv")
+# tournois.register_player(joueur)
+# tournament_manager =TournamentManager()
+# tournament_manager.add_tournament(tournois)
+# tournament_manager.save()

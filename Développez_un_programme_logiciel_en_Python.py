@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-import random
+
 from pickle import *
 from models import Player, Tournament
 
