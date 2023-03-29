@@ -30,7 +30,6 @@ class Tournament():
         
         #newlist = [x.upper() for x in fruits] 
         "index_current_round":self.index_current_round }
-        
         return dico
     
     
@@ -85,7 +84,6 @@ class TournamentManager():
     # penser a ferme le fichier
     
     def add_tournament(self, tournament):
-    
         self.list_tournaments.append(tournament)
     
     def trier(self): 
@@ -145,12 +143,6 @@ class Round(object):# capable de faire
     def from_dict(self,dict):
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
         
-        
-
-            
-            
-
-    
     def start(self):
         self.start= datetime.now()
         pass
@@ -164,8 +156,6 @@ class Round(object):# capable de faire
         return
         
         
-        
-    
     #rajouter une methode news round 
     # comptabilite les point 
     

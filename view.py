@@ -2,7 +2,6 @@ from datetime import datetime
 import sys
 from collections.abc import Callable
 from controler import Controler
-from models import Tournament
 
 # Gérer les tournois: création d'un tournoi, afficher la liste des tournois
 # Gérer la sauvegarde et le rechargement des tournois, comme pour les joueurs
@@ -19,10 +18,10 @@ class View(object):
         if  welcome :
             print("Salut fdp, tu es dans le menu qui te facilitera surement ton travail" )
         print("Tu as le choix entre : ") 
-        print("1: joueur")
-        print("2: tournois")
+        print("1: Joueur")
+        print("2: Tournois")
         print("3: Histoirque des joueurs et des maths ")
-        print("4: connaitre quand aura lieux le match de ton choix  ")
+        print("4: Connaitre quand aura lieux le match de ton choix  ")
         print("5: Sauvegarde")
         choose = input("Fait ton choix (met un chiffre)")
         
@@ -30,16 +29,8 @@ class View(object):
         # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
             self.player_menu()
         elif choose == "2":
-            print("\nOk super te voila dans le menu des tournois tu as le choix entre : \n")
-            print("\n1 :Creer un tournois  \n")
-            print("\n2: Consulter un tournois fdp \n ")
-            choose = input("Indique ton choix")
-            if choose == "1":
-                self.debut_tournois()
-            elif choose == "2":
-                self.consulter_tournois()
-            
-            
+            self.tournament_menu()
+                
         elif choose == "3":
             
             print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
@@ -47,7 +38,7 @@ class View(object):
             #l'idee serait de pouvoir recupere les info d'un joueur precis ?
 
         elif choose == "4":
-             self.display_name_and_date()
+            pass
         elif choose =="5":
             self.controler.save()
             print("\nCa a bien ete sauvegarde \n")
@@ -55,9 +46,7 @@ class View(object):
         else:
             self.exit_back(choose,sys.exit)
             
-    
     def player_menu(self):
-        # Consulter ou Creer joueur
         print ("\n1 : Consulter\n")
         print("\n2 : Creation \n")
         print(" \n3 : Recherche par identifiant\n")
@@ -112,7 +101,14 @@ class View(object):
     
     
     def tournament_menu(self):
-        print("\n Ok te voila dans le menue tournois\n")
+        print("\nOk super te voila dans le menu des tournois tu as le choix entre : \n")
+        print("\n1 :Creer un tournois  \n")
+        print("\n2: Consulter un tournois fdp \n ")
+        choose = input("Indique ton choix")
+        if choose == "1":
+            self.debut_tournois()
+        elif choose == "2":
+            self.consulter_tournois()
         
     
     def debut_tournois(self):#
@@ -133,8 +129,8 @@ class View(object):
             while address == None:
                 address = self.ask_adress()
         self.controler.create_tournament(name,start,end,address)    
-        #self.controler.create_tournament(name = name ,start = start,end=end,address = address) 
-    
+        #self.controler.create_tournament(name = name ,start = start,end=end,address = address)
+        
     def ask_name(self):
         name = input("Nom : ")
         if name == "":
@@ -145,7 +141,6 @@ class View(object):
             return None
         # tester nom disponible
         return name
-    
     
     def date_event(self,question):
         format = "%d/%m/%Y %H:%M"
@@ -179,30 +174,13 @@ class View(object):
     #     self.back_to_menu_or_creation()
     
     def consulter_tournois(self):
-        for index, Tournament in enumerate(self.controler.get_list_tournement()): #
-            print(f"Le tournois '{Tournament.name}'; qui aura lieu ='{Tournament.address}; le  ='{Tournament.start}'; et finira le  = '{Tournament.end}'")
-            pass
-    
-    def display_name_and_date(self):
-    # ● nom et dates d’un tournoi donné ;
-    # faire un disctionnaire
-    # JE CHERCHE LE TOURNOIS rolland 
-        #et je trouve tout les infio lié au tournois 
-        print("Tu souhaites savoir quand est ce qu'aura lieu un tournois ?")
-        print("Rentre son nom juste en bas ")
+        list_tournois = self.controler.get_list_tournement()
         
-        name = self.ask_name(name)
-        #FIXME : FINIR IMPORTANT 
-        # result[name] = date#
-        # print(f"le tournois {name} aura lieu le {date}")
-        # print("Super ta vue ce que tu voulais ? Nice. On peut passer au chose suivante")
-        pass
-    
-    
-    
-
-   
-    
+        if (list_tournois is not None) and len(list_tournois) != 0:
+            for list in list_tournois:
+                print(list)
+        else:
+           print("\nIl n'y a pas de tournois\n ")
     
     
     def exit_back(self,choose:str,back:Callable):

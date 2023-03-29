@@ -5,7 +5,7 @@
 
 
 from models import Player, PlayerManager
-from models import TournamentManager
+from models import TournamentManager,Tournament
 
 
 class Controler:
@@ -24,7 +24,6 @@ class Controler:
         
     
     def get_list_players(self):
-        
         return self.player_manager.list_player
         
         
@@ -32,7 +31,9 @@ class Controler:
         self.player_manager.save()
         
     def create_tournament(self,name, start ,end,address):
-        print(name,start,end,address)
+        tournament = Tournament(name,address,start,end)
+        self.tournament_manager.add_tournament(tournament)
+        
         
     def get_player_by_id(self,id):
         list_player=self.player_manager.list_player
@@ -43,6 +44,14 @@ class Controler:
         raise Exception(f"Le joueur avec l'id : {id}, n'existe pas")
     
     def get_list_tournement(self):
-        return self.tournament_manager.list_tournaments
+        list_tournement =self.tournament_manager.list_tournaments
+        return list_tournement
+        
+            
+    
+    def sav_tournament(self):
+        self.tournament_manager.save()
+        
+
         
     
