@@ -1,10 +1,22 @@
-import datetime
+from datetime import datetime
 import json
     
 
 class Tournament():
     
     def __init__(self,name,address,start,end,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0): # les element necessaire pour creer un tournois (obligatoire)
+      
+        if type(start) is not datetime:
+            try:
+                start=datetime.fromisoformat(start)
+            except Exception as error:
+                raise Exception (f"Cannot initialize tournament:",error)
+            
+        if type(end) is not datetime:
+            try:
+                end=datetime.fromisoformat(end)
+            except Exception as error:
+                raise Exception (f"Cannot initialize tournament:",error)
         self.name = name
         self.address = address
         self.start = start
@@ -198,9 +210,7 @@ class PlayerManager():
         
         self.save_file_name = save_file_name
         self.list_player= [
-            # Player(name ="Roulias", first_name ="Hector", born= "11/11/2011",id="AB23333"),
-            # Player(name="Rollas ",first_name="David ",born="22/22/2012",id="AB2333"),  
-            # Player("Kollos","Brian", "12/02/1999","AB233")
+        
             ]
         
         

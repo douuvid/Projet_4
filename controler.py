@@ -6,6 +6,7 @@
 
 from models import Player, PlayerManager
 from models import TournamentManager,Tournament
+from datetime import datetime
 
 
 class Controler:
@@ -51,6 +52,28 @@ class Controler:
     
     def sav_tournament(self):
         self.tournament_manager.save()
+        
+    def get_tournement_by_name(self,name):
+        tournaments=self.tournament_manager.list_tournaments
+        for tournament in tournaments:
+            if tournament.name == name:
+                return tournament
+            
+        raise Exception(f"Le  tournois avec le nom: {name}, n'existe pas")
+    
+    
+    def register_player_to_tournament(self,player:Player,tournament:Tournament):
+        now = datetime.now()
+        start=tournament.start
+        if start < now:
+            raise Exception ("Trop tard pour s'inscrire ")
+        for pl in tournament.players:
+            if pl.id == player.id:
+                raise Exception(f"Le joueur avec l'id : {pl.id}, est deja inscrit")
+            
+        tournament.players.append(player)
+        
+        
         
 
         

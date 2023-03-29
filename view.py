@@ -12,7 +12,7 @@ class View(object):
     
     def __init__(self):
         self.controler = Controler()
-        
+    # __________________________________________MENU___________________________________
     def menu(self,welcome=False):
     
         if  welcome :
@@ -46,6 +46,7 @@ class View(object):
         else:
             self.exit_back(choose,sys.exit)
             
+       #_______________________________PLAYER_____________________________________     
     def player_menu(self):
         print ("\n1 : Consulter\n")
         print("\n2 : Creation \n")
@@ -99,16 +100,23 @@ class View(object):
             print("Impossible d'afficher les données du joueur : ",error)
         self.player_menu()
     
+    #__________________________ TOURNAMENT ____________________________________
     
     def tournament_menu(self):
         print("\nOk super te voila dans le menu des tournois tu as le choix entre : \n")
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois fdp \n ")
+        print("\n3: inscrire un joueur au tournois fdp \n ")
         choose = input("Indique ton choix")
         if choose == "1":
             self.debut_tournois()
         elif choose == "2":
             self.consulter_tournois()
+            
+        elif choose == "3":
+            self.inscription()
+        else:
+            self.exit_back()
         
     
     def debut_tournois(self):#
@@ -122,15 +130,45 @@ class View(object):
                 start, end = None, None
                 print("La date de début est supérieure à la date de fin")
             while start == None:
-                start = self.date_event("Quelle est la date de début du tournois ? : ")
+                start = self.ask_date("Quelle est la date de début du tournois ? : ")
             while end == None:
-                end = self.date_event("Quelle est la date de fin du tournois ? : ")
+                end = self.ask_date("Quelle est la date de fin du tournois ? : ")
             print(f"C'est bien fdp ta initialiser le tournois sous le nom de {name} qui commencera le '{start}'et se terminera le '{end}'; ".format(name,start,end))
             while address == None:
                 address = self.ask_adress()
         self.controler.create_tournament(name,start,end,address)    
         #self.controler.create_tournament(name = name ,start = start,end=end,address = address)
         
+    def consulter_tournois(self):
+        list_tournois = self.controler.get_list_tournement()
+        
+        if (list_tournois is not None) and len(list_tournois) != 0:
+            for list in list_tournois:
+                print(list)
+        else:
+           print("\nIl n'y a pas de tournois\n ")
+        
+        
+        
+    def inscription(self):
+        print("\n Bonjour vous voici dans l'etape de l'inscription")
+        
+        try:
+            name =input("Rentrer le nom  du tournois  ")
+            tournament =self.controler.get_tournement_by_name(name)
+            id_player = input("Rentrer l'id  du joueur ")
+            player=self.controler.get_player_by_id(id_player)
+            self.controler.register_player_to_tournament(player,tournament)
+            print("le joueur a bien ete inscrit ")
+        except Exception as error: 
+            print(f"Inscription du joueur impossible dans le tournois {name}:",error)
+            self.tournament_menu()
+            
+        
+        
+       
+        
+    #___________________________TOOLS________________________________
     def ask_name(self):
         name = input("Nom : ")
         if name == "":
@@ -142,19 +180,19 @@ class View(object):
         # tester nom disponible
         return name
     
-    def date_event(self,question):
-        format = "%d/%m/%Y %H:%M"
-        event = input(question)
+    def ask_date(self,question):
+        format = "%d/%m/%Y"
+        date = input(question)
         try:
-            event = datetime.strptime(event,format)
+            date = datetime.strptime(date,format)
         except ValueError:
-            print("La date doit etre au format jj/mm/aaaa heure:min")
+            print("La date doit etre au format jj/mm/aaaa ")
             return None
         now = datetime.now()
-        if now > event:
+        if now > date:
             print("Pas de date du passé  ")
             return None
-        return event
+        return date
     
     def ask_adress(self):
         address = input("Quelle est l'adress: ")
@@ -166,21 +204,6 @@ class View(object):
             return None
         return address
 
-        
-    #Rajoter une categorie sauvegarder
-    # def consulter_player(self):
-    #     for index, player in enumerate(self.controler.list_player):
-    #         print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
-    #     self.back_to_menu_or_creation()
-    
-    def consulter_tournois(self):
-        list_tournois = self.controler.get_list_tournement()
-        
-        if (list_tournois is not None) and len(list_tournois) != 0:
-            for list in list_tournois:
-                print(list)
-        else:
-           print("\nIl n'y a pas de tournois\n ")
     
     
     def exit_back(self,choose:str,back:Callable):
@@ -196,4 +219,3 @@ class View(object):
 
 
 
-    
