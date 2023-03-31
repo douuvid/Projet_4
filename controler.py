@@ -15,11 +15,9 @@ class Controler:
         self.player_manager = PlayerManager()
         self.tournament_manager = TournamentManager()
         
-        pass
     
 
     def add_player(self, name, first_name, born, id):
-        
         player = Player(name, first_name, born,id)
         self.player_manager.add_player(player)
         
@@ -30,6 +28,7 @@ class Controler:
         
     def save(self):
         self.player_manager.save()
+        self.tournament_manager.save()
         
     def create_tournament(self,name, start ,end,address):
         tournament = Tournament(name,address,start,end)

@@ -209,11 +209,7 @@ class PlayerManager():
     def __init__(self,save_file_name= "players.json"):
         
         self.save_file_name = save_file_name
-        self.list_player= [
-        
-            ]
-        
-        
+        self.list_player= []
         self.load()
         
         
@@ -221,10 +217,7 @@ class PlayerManager():
     
         try:
             save_file = open (self.save_file_name ,"w+")
-    
-        
             json.dump([player.to_dict() for player in self.list_player],save_file)
-        
             save_file.close()
         
         except Exception as error:

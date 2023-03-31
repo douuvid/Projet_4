@@ -32,7 +32,6 @@ class View(object):
             self.tournament_menu()
                 
         elif choose == "3":
-            
             print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
             ## faire le menu des 3 categories =
             #l'idee serait de pouvoir recupere les info d'un joueur precis ?
@@ -65,7 +64,8 @@ class View(object):
         elif choose == "3":
             self.player_data()
         else:
-            self.exit_back(choose, self.menu)
+            #self.exit_back(choose, self.menu)
+            pass
             
     def consulter_player(self):
         list_player= self.controler.get_list_players()
@@ -152,7 +152,6 @@ class View(object):
         
     def inscription(self):
         print("\n Bonjour vous voici dans l'etape de l'inscription")
-        
         try:
             name =input("Rentrer le nom  du tournois  ")
             tournament =self.controler.get_tournement_by_name(name)
@@ -177,7 +176,6 @@ class View(object):
         if len(name) >= 100:
             print("Le nom est trop long (limité a 99 caracteres)")
             return None
-        # tester nom disponible
         return name
     
     def ask_date(self,question):
@@ -219,3 +217,15 @@ class View(object):
 
 
 
+#30/mars:
+#Ajouter https://pythonfusion.com/table-on-console-python/ pour l'affichage des 
+# Pb sur la sauvegarde des tournois, l
+# Probleme  de date transformer les date qui sont en string pour json
+#Pb de deserialisation pour j son avec model > to_dict 
+# Creer une fonction ou on pourra modif le player 
+# Apres sauvegarde et chargement des tournois 
+#==> tester : creeer un tournois dans lequel on aura mit un player  , apres saubvegarder , redemarrer l'appli
+#==> modif le player (ex modif : nom), apres afficher la lister des player dans le tournois.
+#Le comportement qu'on aura(apres avoir fait ce qui y a ete mit en amont ) la modif sur le player n'apparaitrra pas dans le tournois
+# Donc resoudre se probleme
+# le probleme vient de fair eun to_dict sur player ligne 41(player du torunois)+ le chargement doit se faire autrement 
