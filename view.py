@@ -2,16 +2,14 @@ from datetime import datetime
 import sys
 from collections.abc import Callable
 from controler import Controler
-
-# Gérer les tournois: création d'un tournoi, afficher la liste des tournois
-# Gérer la sauvegarde et le rechargement des tournois, comme pour les joueurs
-# Gérer l'ajout de joueurs dans un tournoi
-# Faire évoluer la sauvegarde/rechargement des tournois en ajoutant la sauvegarde/rechargement des joueurs des tournois
+from prettytable import PrettyTable
+import json
 
 class View(object): 
-    
+     
     def __init__(self):
         self.controler = Controler()
+        
     # __________________________________________MENU___________________________________
     def menu(self,welcome=False):
     
@@ -23,8 +21,10 @@ class View(object):
         print("3: Histoirque des joueurs et des maths ")
         print("4: Connaitre quand aura lieux le match de ton choix  ")
         print("5: Sauvegarde")
-        choose = input("Fait ton choix (met un chiffre)")
-        
+        choose= None
+        while choose == None:
+            choose = self.ask_string("Fait ton choix (met un chiffre)")
+           
         if choose == "1":
         # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
             self.player_menu()
@@ -51,7 +51,9 @@ class View(object):
         print("\n2 : Creation \n")
         print(" \n3 : Recherche par identifiant\n")
         print("")
-        choose = input("Ta le choix entre consulter ou creer fdp (pas les deux en meme temps) ")
+        choose = None
+        while choose == None:
+            choose = self.ask_string("Ta le choix entre consulter ou creer fdp (pas les deux en meme temps) ")
         
         if choose == "1":
             print("")
@@ -76,11 +78,20 @@ class View(object):
         
     
     def player_creation(self):
-        name = input("Name: ")
-        first_name = input("first_name")
-        id= input('ID: ')
-        born = input("Born: ")
+        name =first_name=id =born = None
+        while name == None :
+            name = self.ask_string("Name: ")
+        while first_name == None :
+            first_name = self.ask_string("first_name")
+        while id == None :
+            id= self.ask_string('ID: ')
+        while born == None :
+            born = self.ask_date("Born: ",False)
+        
+        
         try:
+            
+            
             self.controler.add_player(name, first_name, born,id)
             print(f"Ton joueur : {name} avec l'id :{id} a ete crée fdp")
         
@@ -91,7 +102,9 @@ class View(object):
     
     def player_data(self,):
         print("Tu souhaites connaitres toutes les info sur un joueur ?")
-        id= input("Rentre son id juste en bas ")
+        id = None
+        while id == None:
+            id= self.ask_string("Rentre son id juste en bas ")
         try:
             
             player =self.controler.get_player_by_id(id)
@@ -107,7 +120,9 @@ class View(object):
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois fdp \n ")
         print("\n3: inscrire un joueur au tournois fdp \n ")
-        choose = input("Indique ton choix")
+        choose = None
+        while choose == None:
+            choose = self.ask_string("Indique ton choix")
         if choose == "1":
             self.debut_tournois()
         elif choose == "2":
@@ -121,23 +136,45 @@ class View(object):
     
     def debut_tournois(self):#
         print("\nEntre les info pour la creation d'un tournois fdp \n")
+        my_table= PrettyTable()
+        my_table.field_names= ["Nom", "Date de debut","Date de fin","Adresse"]
         
         name, start, end, address = None, None, None, None
         while name == None:
-            name = self.ask_name()
+            name = self.ask_string("Nom du tournois? svp fdp")
         while end == None or start >= end :
             if end != None:
                 start, end = None, None
                 print("La date de début est supérieure à la date de fin")
+            
             while start == None:
-                start = self.ask_date("Quelle est la date de début du tournois ? : ")
+                start = self.ask_date("Quelle est la date de début du tournois ? : ",True)
+                now = datetime.now()
+                if now > start:
+                    print("Pas de date du passé  ")
+                    start = None
+                
             while end == None:
-                end = self.ask_date("Quelle est la date de fin du tournois ? : ")
-            print(f"C'est bien fdp ta initialiser le tournois sous le nom de {name} qui commencera le '{start}'et se terminera le '{end}'; ".format(name,start,end))
-            while address == None:
-                address = self.ask_adress()
+                end = self.ask_date("Quelle est la date de fin du tournois ? : ",True)
+            #print(f"C'est bien fdp ta initialiser le tournois sous le nom de {name} qui commencera le '{start}'et se terminera le '{end}'; ".format(name,start,end))
+                now = datetime.now()
+                if now > end:
+                    print("Pas de date du passé  ")
+                    end = None
+        while address == None:
+            address = self.ask_string("Quelle est votre adress")
+        
+        my_table.add_row([name,start,end,address])
+        print(my_table)
+        date ={"start":start,
+               "end ": end,
+               "adrresse" : address
+
+               }
+        
         self.controler.create_tournament(name,start,end,address)    
         #self.controler.create_tournament(name = name ,start = start,end=end,address = address)
+        
         
     def consulter_tournois(self):
         list_tournois = self.controler.get_list_tournement()
@@ -153,9 +190,12 @@ class View(object):
     def inscription(self):
         print("\n Bonjour vous voici dans l'etape de l'inscription")
         try:
-            name =input("Rentrer le nom  du tournois  ")
+            name,id_player= None,None
+            while name == None:
+                name =self.ask_string("Rentrer le nom  du tournois  ")
             tournament =self.controler.get_tournement_by_name(name)
-            id_player = input("Rentrer l'id  du joueur ")
+            while id_player == None:
+                id_player = self.ask_string("Rentrer l'id  du joueur ")
             player=self.controler.get_player_by_id(id_player)
             self.controler.register_player_to_tournament(player,tournament)
             print("le joueur a bien ete inscrit ")
@@ -165,45 +205,43 @@ class View(object):
             
         
         
-       
+        
         
     #___________________________TOOLS________________________________
-    def ask_name(self):
-        name = input("Nom : ")
+    def ask_string(self,question:str):
+        
+        name = input(question)
         if name == "":
-            print("Veuillez indiquer un nom")
+            print("Reponse vide")
             return None
         if len(name) >= 100:
-            print("Le nom est trop long (limité a 99 caracteres)")
+            print("Reponse trop longue fdp (limité a 99 caracteres)")
             return None
         return name
     
-    def ask_date(self,question):
+    def ask_date(self,question,time:bool= False):
         format = "%d/%m/%Y"
         date = input(question)
+        
+        if time :
+            format = format + " %H:%M" 
+        
         try:
+            
             date = datetime.strptime(date,format)
+            if not time:
+                date = date.date()
+            
         except ValueError:
-            print("La date doit etre au format jj/mm/aaaa ")
+            error ="La date doit etre au format jj/mm/aaaa "
+            if time :
+                error = error + "heure:minute"
+            print(error)
             return None
-        now = datetime.now()
-        if now > date:
-            print("Pas de date du passé  ")
-            return None
+        
         return date
-    
-    def ask_adress(self):
-        address = input("Quelle est l'adress: ")
-        if address == "":
-            print("Veuillez indiquer un nom")
-            return None
-        if len(address) >= 100:
-            print("Le nom est trop long (limité a 99 caracteres)")
-            return None
-        return address
-
-    
-    
+        
+   
     def exit_back(self,choose:str,back:Callable):
         if choose == "exit" :
             sys.exit()
@@ -216,9 +254,7 @@ class View(object):
     
 
 
-
 #30/mars:
-#Ajouter https://pythonfusion.com/table-on-console-python/ pour l'affichage des 
 # Pb sur la sauvegarde des tournois, l
 # Probleme  de date transformer les date qui sont en string pour json
 #Pb de deserialisation pour j son avec model > to_dict 

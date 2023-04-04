@@ -1,22 +1,11 @@
-from datetime import datetime
+from datetime import datetime,date
 import json
+from types import NoneType
     
 
 class Tournament():
     
-    def __init__(self,name,address,start,end,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0): # les element necessaire pour creer un tournois (obligatoire)
-      
-        if type(start) is not datetime:
-            try:
-                start=datetime.fromisoformat(start)
-            except Exception as error:
-                raise Exception (f"Cannot initialize tournament:",error)
-            
-        if type(end) is not datetime:
-            try:
-                end=datetime.fromisoformat(end)
-            except Exception as error:
-                raise Exception (f"Cannot initialize tournament:",error)
+    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0): # les element necessaire pour creer un tournois (obligatoire)
         self.name = name
         self.address = address
         self.start = start
@@ -29,12 +18,12 @@ class Tournament():
         # ceux qui a l 'interieur sont tous les attribut (variable) qu'on stockera 
         
     def to_dict(self):
-        #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire il vont aller dans round list
+        
         
         dico= {"name": self.name,  
                     "address":self.address, 
-        "start":self.start,
-        "end":self.end, 
+        "start":self.start.isoformat(),
+        "end":self.end.isoformat(), 
         "nb_rounds":self.nb_rounds,
         "description":self.description, 
         "round_list":[round.to_dict()for round in self.round_list], 
@@ -55,7 +44,7 @@ class Tournament():
         
         if "matchs" in dict:
             return Round.from_dict(dict)
-        return Tournament( dict["name"],dict["address"],dict["start"],dict["end"],dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"])
+        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"])
     
    
             
@@ -118,62 +107,9 @@ class TournamentManager():
         pass
     
     
-
-
-
-
-
-class Round(object):# capable de faire 
-    def __init__(self,name,matchs= [],start= None,end = None):
-        self.matchs = matchs
-        self.start = start
-        self.end = end
-        self.name= name
-        
-        
-        
-        
-    def add_match(self,player1, player2):
-        playerA = [player1, None]
-        playerB = [player2, None]
-        _match =(playerA,playerB) 
-        self.matchs.append(_match)
-        
-    def count_points(self,player_win):
-        #faire une fonction qui compte les poiint 
-        pass
-    
-    def to_dict(self):
-        dico= {"name": self.name,  
-                    "matchs":self.matchs, 
-        "start":self.start,
-        "end":self.end, 
-        }
-
-        return dico
-    @classmethod    
-    def from_dict(self,dict):
-        return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
-        
-    def start(self):
-        self.start= datetime.now()
-        pass
-        
-
-        
-    def end(self):
-        self.end = datetime.now()
-        
-    def add_new_round(self,players):
-        return
-        
-        
-    #rajouter une methode news round 
-    # comptabilite les point 
-    
 class Player():
         
-    def __init__(self,name,first_name,born,id):
+    def __init__(self,name,first_name,born:date,id):
             self.name = name
             self.first_name = first_name
             self.id = id
@@ -192,13 +128,13 @@ class Player():
         dico= {"name": self.name,  
                     "first_name":self.first_name, 
         "id":self.id,
-        "born":self.born,
+        "born":self.born.isoformat()
         }
 
         return dico
     @classmethod
     def from_dict(self,dict):
-        return Player(dict["name"],dict["first_name"],dict["born"],dict["id"])
+        return Player(dict["name"],dict["first_name"],date.fromisoformat(dict["born"]),dict["id"])
         
         
 
@@ -225,7 +161,7 @@ class PlayerManager():
         
     # penser a ferme le fichier
     
-    def add_player(self, player):
+    def add_player(self, player:Player):
         for pl in self.list_player:
             if pl.id == player.id:
                 raise Exception (f"Le joueur avec {pl.id} existe deja ")
@@ -253,7 +189,71 @@ class PlayerManager():
     #au lieu d'avoir un tableau de player avoir un tableau de dictionnaire dans la fonction save 
         
         
+
+
+class Round(object):# capable de faire 
+    def __init__(self,name,matchs= [],start:datetime | NoneType = None,end: datetime | NoneType = None):
+        self.matchs = matchs
+        self.start = start
+        self.end = end
+        self.name= name
+        
+        
+        
+        
+    def add_match(self,player1, player2):
+        playerA = [player1, None]
+        playerB = [player2, None]
+        _match =(playerA,playerB) 
+        self.matchs.append(_match)
+        
+    def count_points(self,player_win):
+        #faire une fonction qui compte les poiint 
+        pass
     
+    def to_dict(self):
+        dico= {"name": self.name,  
+                    "matchs":self.matchs, 
+        "start":self.start,
+        "end":self.end, 
+        }
+        if self.start is not None:
+            dico ["start"]=self.start.isoformat()
+
+        if self.end is not None:
+            dico ["end"]=self.end.isoformat()
+
+        return dico
+    @classmethod    
+    def from_dict(self,dict):
+        
+        if dict["start"] is not None:
+            dict["start"]=datetime.fromisoformat(dict["start"])
+            
+        if dict["end"] is not None:
+            dict["end"]=datetime.fromisoformat(dict["end"])
+            
+            
+        return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
+        
+        
+        
+        
+    def start(self):
+        self.start= datetime.now()
+        pass
+        
+
+        
+    def end(self):
+        self.end = datetime.now()
+        
+    def add_new_round(self,players):
+        return
+        
+        
+    #rajouter une methode news round 
+    # comptabilite les point 
 
     
 

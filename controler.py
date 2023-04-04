@@ -18,7 +18,10 @@ class Controler:
     
 
     def add_player(self, name, first_name, born, id):
+        if name == None or first_name ==None or born ==None or id == None:
+            raise Exception("Impossible de creer le joeur ")
         player = Player(name, first_name, born,id)
+        
         self.player_manager.add_player(player)
         
     
