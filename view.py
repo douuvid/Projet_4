@@ -116,10 +116,11 @@ class View(object):
     #__________________________ TOURNAMENT ____________________________________
     
     def tournament_menu(self):
-        print("\nOk super te voila dans le menu des tournois tu as le choix entre : \n")
+        print("\nOk Super te voila dans le menu des tournois tu as le choix entre : \n")
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois fdp \n ")
-        print("\n3: inscrire un joueur au tournois fdp \n ")
+        print("\n3: Inscrire un joueur au tournois fdp \n ")
+        print("\n4: Gerer les match fdp \n ")
         choose = None
         while choose == None:
             choose = self.ask_string("Indique ton choix")
@@ -130,6 +131,9 @@ class View(object):
             
         elif choose == "3":
             self.inscription()
+            
+        elif choose =="4":
+            self.end_match()
         else:
             self.exit_back()
         
@@ -150,7 +154,7 @@ class View(object):
             while start == None:
                 start = self.ask_date("Quelle est la date de début du tournois ? : ",True)
                 now = datetime.now()
-                if now > start:
+                if start != None and now > start:
                     print("Pas de date du passé  ")
                     start = None
                 
@@ -158,20 +162,16 @@ class View(object):
                 end = self.ask_date("Quelle est la date de fin du tournois ? : ",True)
             #print(f"C'est bien fdp ta initialiser le tournois sous le nom de {name} qui commencera le '{start}'et se terminera le '{end}'; ".format(name,start,end))
                 now = datetime.now()
-                if now > end:
+                if end != None and now > end:
                     print("Pas de date du passé  ")
                     end = None
+                    
         while address == None:
             address = self.ask_string("Quelle est votre adress")
         
         my_table.add_row([name,start,end,address])
         print(my_table)
-        date ={"start":start,
-               "end ": end,
-               "adrresse" : address
-
-               }
-        
+      
         self.controler.create_tournament(name,start,end,address)    
         #self.controler.create_tournament(name = name ,start = start,end=end,address = address)
         
@@ -204,6 +204,61 @@ class View(object):
             self.tournament_menu()
             
         
+    def end_match(self):
+        index = 1
+        open_tournaments=self.controler.get_open_tournaments()
+        if len(open_tournaments) ==0:
+            print("Aucun tournois en cours ")
+            self.tournament_menu()
+            return 
+        for tournement in open_tournaments:
+            print(f"{index} : {tournement.name}")
+        
+        index_choose = None
+        while index_choose == None:
+            index_choose = self.ask_int("Quel est le tournois concerné ?")
+            if index_choose != None and (index_choose  > len(open_tournaments) or index_choose <1):
+                index_choose = None
+                print("Mauvais choix fdp")
+                
+        selected_tournament= open_tournaments[index_choose -1] 
+        print(selected_tournament.name)
+        last_round =self.controler.get_last_round(selected_tournament)
+            
+        index = 1 
+        if len(last_round.matchs) == 0:
+            print('Aucun match en cours')
+            self.tournament_menu()
+            return
+        
+        for matchou in last_round.matchs:
+            print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
+            
+        indexou_choose = None
+        while indexou_choose == None :
+            indexou_choose == self.ask_int("Quel est le match concerne")
+            if indexou_choose!= None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
+                indexou_choose = None
+                print("Mauvais choix de match  fdp")
+                
+        
+        select_match=last_round.matchs[indexou_choose-1]
+        print(select_match)
+        
+        
+        score = None
+        self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ") 
+        
+    
+        
+        
+        
+        
+        #end= self.ask_string("Quel match est termine ? ") 
+        
+        
+        # Le match est termine == Oui
+        #Le match n'est pas terminnne == None 
         
         
         
@@ -240,6 +295,16 @@ class View(object):
             return None
         
         return date
+    
+    def ask_int(self,question:str):
+        try:
+            return int(input(question))
+    
+        except Exception as error :
+            print(f"Pas un nombre : ",error)
+            return None
+    
+
         
    
     def exit_back(self,choose:str,back:Callable):
@@ -250,6 +315,8 @@ class View(object):
             
         else:
             print("\nCe choix n'est pas dispo ou n'existe pas \n")
+            
+    
 
     
 
@@ -265,3 +332,6 @@ class View(object):
 #Le comportement qu'on aura(apres avoir fait ce qui y a ete mit en amont ) la modif sur le player n'apparaitrra pas dans le tournois
 # Donc resoudre se probleme
 # le probleme vient de fair eun to_dict sur player ligne 41(player du torunois)+ le chargement doit se faire autrement 
+
+
+    

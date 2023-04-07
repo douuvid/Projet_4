@@ -49,9 +49,44 @@ class Controler:
     def get_list_tournement(self):
         list_tournement =self.tournament_manager.list_tournaments
         return list_tournement
-        
-            
     
+    def get_open_tournaments(self):
+        return self.tournament_manager.get_open_tournaments()
+        
+    
+    
+    # result_match : 1  = joueur 1 gagner
+    # result_match : 2 = joueur 2 gagne
+    # result_match : 0: egalite
+    
+    def end_match(self,match,tournament:Tournament,result_match:int):
+
+        
+        if result_match == 1:
+            match[0][1] = 2
+            match[1][1] = 0
+            
+            
+        elif result_match == 2:
+            match[0][1] = 0
+            match[1][1] = 2
+            
+            
+        elif result_match == 0:
+            match[0][1] = 1
+            match[1][1] = 1
+        
+        
+        
+        else:
+            raise Exception ("Choisi 1,2 ou 0 fdp")
+        
+        tournament.add_score_to_player(match[0][1],match[0][0])
+        tournament.add_score_to_player(match[1][1],match[1][0])
+        
+         
+        
+        
     def sav_tournament(self):
         self.tournament_manager.save()
         
@@ -69,13 +104,15 @@ class Controler:
         start=tournament.start
         if start < now:
             raise Exception ("Trop tard pour s'inscrire ")
-        for pl in tournament.players:
-            if pl.id == player.id:
-                raise Exception(f"Le joueur avec l'id : {pl.id}, est deja inscrit")
-            
-        tournament.players.append(player)
+        tournament.register_player(player)
         
         
+    def get_last_round(self,tournament:Tournament):
+        if len(tournament.round_list) == 0:
+            raise Exception ("No round on this tournament")
+        return tournament.round_list[-1]
+    
+    
         
 
         

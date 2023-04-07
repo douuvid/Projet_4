@@ -1,11 +1,12 @@
 from datetime import datetime,date
 import json
 from types import NoneType
+import random
     
 
 class Tournament():
     
-    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0): # les element necessaire pour creer un tournois (obligatoire)
+    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
         self.name = name
         self.address = address
         self.start = start
@@ -15,7 +16,11 @@ class Tournament():
         self.round_list = round_list
         self.players = players
         self.index_current_round = index_current_round
+        self.is_open = is_open
+        
         # ceux qui a l 'interieur sont tous les attribut (variable) qu'on stockera 
+        
+        
         
     def to_dict(self):
         
@@ -27,10 +32,12 @@ class Tournament():
         "nb_rounds":self.nb_rounds,
         "description":self.description, 
         "round_list":[round.to_dict()for round in self.round_list], 
-        "players": [ player.to_dict()for player in self.players], 
+        "players": [ (player[0].to_dict(),player[1])for player in self.players], 
         
         #newlist = [x.upper() for x in fruits] 
-        "index_current_round":self.index_current_round }
+        "index_current_round":self.index_current_round,
+        "is_open": self.is_open
+        }
         return dico
     
     
@@ -44,20 +51,32 @@ class Tournament():
         
         if "matchs" in dict:
             return Round.from_dict(dict)
-        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"])
+        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"],dict["is_open"])
     
    
             
         
     def register_player(self,player):
         for pl in self.players:
-            if pl.id == player.id: ## 
+            if pl[0].id == player.id: ## 
                 raise Exception("le joueur avec l'id "+ player.id +" est deja inscrit ")
-        self.players.append(player)
+        self.players.append((player,0))
     ######è
     
     def __str__(self):
         return f"{self.name},{self.start},{self.end}{self.address}{self.description}"
+    
+    def close_tournament(self):
+      self.is_open= False
+      
+    def add_score_to_player(self,score:int,player:Player):
+        for pl in self.players:
+            if pl[0].id == player.id:
+                pl[1] += score
+                break
+        else:
+            raise Exception ("Impossible d'ajouter  le score au joueur , joueur inexistant ")
+        
     
    
     
@@ -67,8 +86,23 @@ class TournamentManager():
         self.save_file_name = save_file_name
         self.list_tournaments= []
         self.load()
-        
-        
+    
+    def add_tournament(self, tournament:Tournament):
+        self.list_tournaments.append(tournament)
+    
+    
+    def close_tournament(self,name:str):
+        for tournament in self.list_tournaments:
+            if tournament.name == name:
+                tournament.close_tournament()
+                break
+            
+        else:
+            raise Exception(f"Le tournois : {name} est inconnu")
+            
+      
+     
+      
     def save(self):
         try:
             save_file = open (self.save_file_name ,"w+")
@@ -80,12 +114,9 @@ class TournamentManager():
         except Exception as error:
             raise Exception ("Error saving tournament info : ",error)
         
-        
-        
     # penser a ferme le fichier
     
-    def add_tournament(self, tournament):
-        self.list_tournaments.append(tournament)
+    
     
     def trier(self): 
         self.list_tournaments.sort(key=lambda tournament:tournament.start)
@@ -104,7 +135,17 @@ class TournamentManager():
         except Exception as error:
             print("Error loading tournament info : ",error)
         
-        pass
+    
+    def get_open_tournaments(self):
+        open_tournaments = []
+        
+        for tournament in self.list_tournaments:
+            if tournament.is_open:
+                open_tournaments.append(tournament)
+        return open_tournaments
+                
+        
+        
     
     
 class Player():
@@ -123,7 +164,7 @@ class Player():
         return f"< Player name:{self.name} first_name:{self.first_name} id:{self.id} born:{self.born} >"
     
     def to_dict(self):
-        #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire il vont aller dans round list
+        #retourner un dictionnaire et chaque attrivbut dans tournament il va le mettre dans un dictionnaire
 
         dico= {"name": self.name,  
                     "first_name":self.first_name, 
@@ -175,12 +216,8 @@ class PlayerManager():
         
     def load(self):
         try:
-            
             save_file = open (self.save_file_name,"r")
-        
-            
-            self.list_player = json.load(save_file, object_hook= lambda dict: Player.from_dict(dict))
-                                         
+            self.list_player = json.load(save_file, object_hook= lambda dict: Player.from_dict(dict))                            
             save_file.close()
         
         except Exception as error:
@@ -197,7 +234,13 @@ class Round(object):# capable de faire
         self.start = start
         self.end = end
         self.name= name
-        
+    
+    
+    def start(self):
+        self.start= datetime.now()
+       
+    def end(self):
+        self.end = datetime.now()
         
         
         
@@ -209,6 +252,9 @@ class Round(object):# capable de faire
         
     def count_points(self,player_win):
         #faire une fonction qui compte les poiint 
+        #l'idee serait de se dire qu'a chaque fois un joueur gagne un point lui ai attribue 
+        total_de_point = 0
+        
         pass
     
     def to_dict(self):
@@ -235,18 +281,18 @@ class Round(object):# capable de faire
             
             
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
+    
+    def mixe_player (self,):
+        
+        list_player = []
         
         
         
         
-    def start(self):
-        self.start= datetime.now()
+    def mixe_player_after_match (self):
         pass
         
-
         
-    def end(self):
-        self.end = datetime.now()
         
     def add_new_round(self,players):
         return
