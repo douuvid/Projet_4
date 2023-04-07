@@ -83,7 +83,7 @@ class Controler:
         
         tournament.add_score_to_player(match[0][1],match[0][0])
         tournament.add_score_to_player(match[1][1],match[1][0])
-        
+        #FIXME : FERMER UN ROUND SI JAMAIS LE MATCH ETZIT LE DERNIER OUVERT
          
         
         
@@ -115,5 +115,5 @@ class Controler:
     
         
 
-        
+
     

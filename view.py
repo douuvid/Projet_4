@@ -205,53 +205,22 @@ class View(object):
             
         
     def end_match(self):
-        index = 1
-        open_tournaments=self.controler.get_open_tournaments()
-        if len(open_tournaments) ==0:
-            print("Aucun tournois en cours ")
-            self.tournament_menu()
-            return 
-        for tournement in open_tournaments:
-            print(f"{index} : {tournement.name}")
-        
-        index_choose = None
-        while index_choose == None:
-            index_choose = self.ask_int("Quel est le tournois concerné ?")
-            if index_choose != None and (index_choose  > len(open_tournaments) or index_choose <1):
-                index_choose = None
-                print("Mauvais choix fdp")
-                
-        selected_tournament= open_tournaments[index_choose -1] 
+        selected_tournament= self.ask_tournament()
         print(selected_tournament.name)
         last_round =self.controler.get_last_round(selected_tournament)
-            
-        index = 1 
-        if len(last_round.matchs) == 0:
-            print('Aucun match en cours')
-            self.tournament_menu()
-            return
+        select_match = self.ask_match(last_round)
         
-        for matchou in last_round.matchs:
-            print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
-            
-        indexou_choose = None
-        while indexou_choose == None :
-            indexou_choose == self.ask_int("Quel est le match concerne")
-            if indexou_choose!= None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
-                indexou_choose = None
-                print("Mauvais choix de match  fdp")
-                
-        
-        select_match=last_round.matchs[indexou_choose-1]
         print(select_match)
         
-        
+        tableau_score = [1,2,0]
         score = None
-        self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ") 
+        while score == None :
+            score =self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ") 
+            if score != None and score not in tableau_score :
+                print("Tu t'es tromper selectionne un chiffre (1,2 ou 0)")
         
     
-        
-        
+        self.controler.end_match(select_match,selected_tournament, score)
         
         
         #end= self.ask_string("Quel match est termine ? ") 
@@ -305,7 +274,45 @@ class View(object):
             return None
     
 
+    def ask_tournament(self):
+        index = 1
+        open_tournaments=self.controler.get_open_tournaments()
+        if len(open_tournaments) ==0:
+            print("Aucun tournois en cours ")
+            self.tournament_menu()
+            return 
+        for tournement in open_tournaments:
+            print(f"{index} : {tournement.name}")
         
+        index_choose = None
+        while index_choose == None:
+            index_choose = self.ask_int("Quel est le tournois concerné ?")
+            if index_choose != None and (index_choose  > len(open_tournaments) or index_choose <1):
+                index_choose = None
+                print("Mauvais choix fdp")
+                
+        return open_tournaments[index_choose -1] 
+        
+    def ask_match (self,last_round):
+        index = 1 
+        if len(last_round.matchs) == 0:
+            print('Aucun match en cours')
+            self.tournament_menu()
+            return
+        
+        for matchou in last_round.matchs:
+            print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
+            
+        indexou_choose = None
+        while indexou_choose == None :
+            indexou_choose = self.ask_int("Quel est le match concerne")
+            if indexou_choose!= None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
+                indexou_choose = None
+                print("Mauvais choix de match  fdp")
+                
+        
+        return last_round.matchs[indexou_choose-1]
+   
    
     def exit_back(self,choose:str,back:Callable):
         if choose == "exit" :
