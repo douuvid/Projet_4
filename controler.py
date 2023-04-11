@@ -2,9 +2,7 @@
 # lci c'est la view qui stock le controleur. C'est la view qui questionne le controleur 
 # c'est lui qui decide qui joue avec qui(c'est le cerveau) ensuite stock lle round dans tournois
 
-
-
-from models import Player, PlayerManager
+from models import Player, PlayerManager,Round
 from models import TournamentManager,Tournament
 from datetime import datetime
 
@@ -14,6 +12,7 @@ class Controler:
         #model
         self.player_manager = PlayerManager()
         self.tournament_manager = TournamentManager()
+        
         
     
 
@@ -78,13 +77,14 @@ class Controler:
         
         
         
+        elif len(match) > tournament.nb_rounds:
+            raise Exception ("Fin du round")
         else:
             raise Exception ("Choisi 1,2 ou 0 fdp")
         
         tournament.add_score_to_player(match[0][1],match[0][0])
         tournament.add_score_to_player(match[1][1],match[1][0])
-        #FIXME : FERMER UN ROUND SI JAMAIS LE MATCH ETZIT LE DERNIER OUVERT
-         
+        
         
         
     def sav_tournament(self):
@@ -113,7 +113,14 @@ class Controler:
         return tournament.round_list[-1]
     
     
+    def start_round(self,tournament:Tournament):
+        #◊◊Le start des round est sensé créer les matchs 
+        tournament.create_next_round()
         
-
+        
+        
+        
+        
+    
 
     

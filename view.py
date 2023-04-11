@@ -121,6 +121,7 @@ class View(object):
         print("\n2: Consulter un tournois fdp \n ")
         print("\n3: Inscrire un joueur au tournois fdp \n ")
         print("\n4: Gerer les match fdp \n ")
+        print("\n5: Commencer un round \n ")
         choose = None
         while choose == None:
             choose = self.ask_string("Indique ton choix")
@@ -134,8 +135,12 @@ class View(object):
             
         elif choose =="4":
             self.end_match()
+            
+        elif choose =="5":
+            self.start_round()
+            
         else:
-            self.exit_back()
+            self.exit_back(choose, self.menu)
         
     
     def debut_tournois(self):#
@@ -203,11 +208,29 @@ class View(object):
             print(f"Inscription du joueur impossible dans le tournois {name}:",error)
             self.tournament_menu()
             
+    def start_round(self):
+  
+        tournament = None 
+        while tournament == None:
+            tournament=self.ask_tournament() 
+        try:
+            self.controler.start_round(tournament)
         
+        except Exception as error :
+            print(f"Impossible de faire le round : {error}")
+            
+             
+        
+        
+    
     def end_match(self):
         selected_tournament= self.ask_tournament()
         print(selected_tournament.name)
-        last_round =self.controler.get_last_round(selected_tournament)
+        try:
+            last_round =self.controler.get_last_round(selected_tournament)
+            
+        except Exception as error :
+            print(f"Impossible d'obtenir le dernier round  :{error}")
         select_match = self.ask_match(last_round)
         
         print(select_match)
@@ -221,7 +244,7 @@ class View(object):
         
     
         self.controler.end_match(select_match,selected_tournament, score)
-        
+        print("le match est Terminer  ")
         
         #end= self.ask_string("Quel match est termine ? ") 
         
@@ -283,6 +306,7 @@ class View(object):
             return 
         for tournement in open_tournaments:
             print(f"{index} : {tournement.name}")
+            index += 1
         
         index_choose = None
         while index_choose == None:
@@ -302,6 +326,7 @@ class View(object):
         
         for matchou in last_round.matchs:
             print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
+            index += 1
             
         indexou_choose = None
         while indexou_choose == None :

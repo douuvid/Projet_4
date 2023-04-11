@@ -1,12 +1,13 @@
 from datetime import datetime,date
 import json
 from types import NoneType
-import random
+from random import shuffle
+
     
 
 class Tournament():
     
-    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=0,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
+    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=-1,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
         self.name = name
         self.address = address
         self.start = start
@@ -19,7 +20,49 @@ class Tournament():
         self.is_open = is_open
         
         # ceux qui a l 'interieur sont tous les attribut (variable) qu'on stockera 
+    
+    
+    def create_next_round(self,start=datetime.now()):
+        if len(self.round_list) >= self.nb_rounds:
+            raise  Exception (" Limite de round atteinte ")
+        print(self.players)
+        if len(self.players) <= 1:
+            raise Exception ("Il n'y a pas assez  de joueur ")
         
+        if not self.is_open:
+            raise Exception ('Le tournois est termine ')
+        
+        # ==> Ici on secur que nos  listes (voir si elle existe, )
+        
+        round_number = self.index_current_round + 2
+        round= Round("Round "+str(round_number),start= start)
+        players_by_score = [[]]* round_number * 2
+        
+    
+        for player in self.players :
+            players_by_score[player[1]].append(player[0])
+        
+        players_by_score.reverse()#Pour commecner la liste des joeur oar le plus fort et pour eviter que le joueur le plus fort soit avantager
+        selected_players = []
+        for player_list in players_by_score:
+            shuffle(player_list)
+            for player in player_list:
+                selected_players.append(player)
+                # Des qu'on est a deux on cree le match
+                if len(selected_players) == 2 :
+                    round.add_match(selected_players[0], selected_players[1])
+                    selected_players = []
+                    
+        if len(selected_players) == 1:
+            round.add_match(selected_players[0],None)
+            match_ = round.matchs[-1]
+            match_[0][1] = 2
+            match_[1][1] = 0
+            
+                 
+            
+        self.round_list.append(round)
+        self.index_current_round +=1
         
         
     def to_dict(self):
@@ -51,7 +94,7 @@ class Tournament():
         
         if "matchs" in dict:
             return Round.from_dict(dict)
-        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],[],[],dict["index_current_round"],dict["is_open"])
+        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],dict["round_list"],dict["players"],dict["index_current_round"],dict["is_open"])
     
    
             
@@ -69,13 +112,15 @@ class Tournament():
     def close_tournament(self):
       self.is_open= False
       
-    def add_score_to_player(self,score:int,player:Player):
+    def add_score_to_player(self,score:int,player):
         for pl in self.players:
             if pl[0].id == player.id:
                 pl[1] += score
                 break
         else:
             raise Exception ("Impossible d'ajouter  le score au joueur , joueur inexistant ")
+        
+    
         
     
    
@@ -101,8 +146,6 @@ class TournamentManager():
             raise Exception(f"Le tournois : {name} est inconnu")
             
       
-     
-      
     def save(self):
         try:
             save_file = open (self.save_file_name ,"w+")
@@ -115,7 +158,6 @@ class TournamentManager():
             raise Exception ("Error saving tournament info : ",error)
         
     # penser a ferme le fichier
-    
     
     
     def trier(self): 
@@ -145,8 +187,6 @@ class TournamentManager():
         return open_tournaments
                 
         
-        
-    
     
 class Player():
         
@@ -250,16 +290,26 @@ class Round(object):# capable de faire
         _match =(playerA,playerB) 
         self.matchs.append(_match)
         
-    def count_points(self,player_win):
-        #faire une fonction qui compte les poiint 
-        #l'idee serait de se dire qu'a chaque fois un joueur gagne un point lui ai attribue 
-        total_de_point = 0
-        
-        pass
+    
     
     def to_dict(self):
+        matchs=[]
+        
+        for match in self.matchs:
+            m = []
+            #matchs.append(match)
+            for player in match:
+                pl= None
+                if player[0] != None:
+                    pl= player[0].to_dict()
+                m.append([pl,player[1]])
+            matchs.append((m[0],m[1]))
+            
+        
+            
+                
         dico= {"name": self.name,  
-                    "matchs":self.matchs, 
+                    "matchs":matchs, 
         "start":self.start,
         "end":self.end, 
         }
@@ -282,20 +332,7 @@ class Round(object):# capable de faire
             
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
     
-    def mixe_player (self,):
-        
-        list_player = []
-        
-        
-        
-        
-    def mixe_player_after_match (self):
-        pass
-        
-        
-        
-    def add_new_round(self,players):
-        return
+  
         
         
     #rajouter une methode news round 
@@ -305,7 +342,7 @@ class Round(object):# capable de faire
 
 
 # joueur = Player("DAVV","rAVO", "12/12/2000", "293847")
-# player_manager =PlayerManager()
+# player_mana er =PlayerManager()
 # player_manager.add_player(joueur)
 # player_manager.save()
 
