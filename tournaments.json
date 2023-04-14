@@ -1,74 +1,23 @@
-[{
-    "name": "ouch",
-    "address": "zecezc",
-    "start": "2099-12-12T12:22:00",
-    "end": "3000-12-12T12:12:00",
-    "nb_rounds": 4,
-    "description": "",
-    "round_list": [{
-        "name": "Round 1",
-        "matchs": [
+[{ "name": "zerty", "address": "dc", "start": "2034-12-12T12:12:00", "end": "2035-12-12T12:12:00", "nb_rounds": 4, "description": "", "round_list": [{ "name": "Round 1", "matchs": [
             [
-                [{ "name": "opze", "first_name": "zrefzc", "id": "5678", "born": "2000-12-12" }, 6],
-                [{ "name": "etcrg", "first_name": "niokoqqcce", "id": "9876345", "born": "2000-12-12" }, 0]
+                [{ "name": "erbg", "first_name": "crzeth", "id": "9866", "born": "2000-12-12" }, 2],
+                [{ "name": "opze", "first_name": "zrefzc", "id": "5678", "born": "2000-12-12" }, 0]
             ],
             [
-                [{ "name": "etczecsd", "first_name": "niokodsv", "id": "98767654", "born": "2000-12-12" }, null],
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, null]
-            ],
+                [{ "name": "utv", "first_name": "uytyre", "id": "45678", "born": "2000-12-12" }, 2],
+                [null, 0]
+            ]
+        ], "start": "2023-04-14T12:39:56.329883", "end": "2023-04-14T13:40:36.490713" }, { "name": "Round 2", "matchs": [
             [
-                [{ "name": "azerty", "first_name": "treza", "id": "1234", "born": "2000-12-12" }, null],
-                [{ "name": "etczefez", "first_name": "niokodez", "id": "987644", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "etcefze", "first_name": "niokoze", "id": "987", "born": "2000-12-12" }, null],
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "etcezf", "first_name": "niokosqd", "id": "9876987", "born": "2000-12-12" }, null],
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "etcdsv", "first_name": "niokosdcv", "id": "9876567", "born": "2000-12-12" }, null],
-                [{ "name": "azerty", "first_name": "treza", "id": "1234", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, null],
-                [{ "name": "etcrg", "first_name": "niokoqqcce", "id": "9876345", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, null],
-                [{ "name": "etcdsv", "first_name": "niokosdcv", "id": "9876567", "born": "2000-12-12" }, null]
-            ],
-            [
-                [{ "name": "etczefez", "first_name": "niokodez", "id": "987644", "born": "2000-12-12" }, null],
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, null]
+                [{ "name": "erbg", "first_name": "crzeth", "id": "9866", "born": "2000-12-12" }, 2],
+                [{ "name": "utv", "first_name": "uytyre", "id": "45678", "born": "2000-12-12" }, 0]
             ],
             [
                 [{ "name": "opze", "first_name": "zrefzc", "id": "5678", "born": "2000-12-12" }, 2],
-                [{ "name": "etcefze", "first_name": "niokoze", "id": "987", "born": "2000-12-12" }, 0]
-            ],
-            [
-                [{ "name": "etcezf", "first_name": "niokosqd", "id": "9876987", "born": "2000-12-12" }, null],
-                [{ "name": "etczecsd", "first_name": "niokodsv", "id": "98767654", "born": "2000-12-12" }, null]
+                [null, 0]
             ]
-        ],
-        "start": "2023-04-11T21:17:00.794807",
-        "end": null
-    }],
-    "players": [
-        [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 0],
-        [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 0],
-        [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 0],
-        [{ "name": "azerty", "first_name": "treza", "id": "1234", "born": "2000-12-12" }, 0],
-        [{ "name": "opze", "first_name": "zrefzc", "id": "5678", "born": "2000-12-12" }, 4],
-        [{ "name": "etcefze", "first_name": "niokoze", "id": "987", "born": "2000-12-12" }, 0],
-        [{ "name": "etczefez", "first_name": "niokodez", "id": "987644", "born": "2000-12-12" }, 0],
-        [{ "name": "etcdsv", "first_name": "niokosdcv", "id": "9876567", "born": "2000-12-12" }, 0],
-        [{ "name": "etczecsd", "first_name": "niokodsv", "id": "98767654", "born": "2000-12-12" }, 0],
-        [{ "name": "etcezf", "first_name": "niokosqd", "id": "9876987", "born": "2000-12-12" }, 0],
-        [{ "name": "etcrg", "first_name": "niokoqqcce", "id": "9876345", "born": "2000-12-12" }, 0]
-    ],
-    "index_current_round": 0,
-    "is_open": true
-}]
+        ], "start": "2023-04-14T13:39:52.250905", "end": "2023-04-14T13:41:29.505808" }], "players": [
+        [{ "name": "opze", "first_name": "zrefzc", "id": "5678", "born": "2000-12-12" }, 0],
+        [{ "name": "utv", "first_name": "uytyre", "id": "45678", "born": "2000-12-12" }, 0],
+        [{ "name": "erbg", "first_name": "crzeth", "id": "9866", "born": "2000-12-12" }, 8]
+    ], "index_current_round": 1, "is_open": true }]

@@ -25,7 +25,7 @@ class Tournament():
     def create_next_round(self,start=datetime.now()):
         if len(self.round_list) >= self.nb_rounds:
             raise  Exception (" Limite de round atteinte ")
-        print(self.players)
+        
         if len(self.players) <= 1:
             raise Exception ("Il n'y a pas assez  de joueur ")
         
@@ -36,16 +36,22 @@ class Tournament():
         
         round_number = self.index_current_round + 2
         round= Round("Round "+str(round_number),start= start)
-        players_by_score = [[]]* round_number * 2
+        players_by_score = []# pour creer des case dispo (une liste avec une longueur connu d'avance )
+        
         
     
         for player in self.players :
+            while len(players_by_score) <= player[1] :
+                players_by_score.append([])
             players_by_score[player[1]].append(player[0])
         
         players_by_score.reverse()#Pour commecner la liste des joeur oar le plus fort et pour eviter que le joueur le plus fort soit avantager
+        
         selected_players = []
         for player_list in players_by_score:
+            
             shuffle(player_list)
+            
             for player in player_list:
                 selected_players.append(player)
                 # Des qu'on est a deux on cree le match
@@ -58,8 +64,6 @@ class Tournament():
             match_ = round.matchs[-1]
             match_[0][1] = 2
             match_[1][1] = 0
-            
-                 
             
         self.round_list.append(round)
         self.index_current_round +=1
@@ -121,6 +125,16 @@ class Tournament():
             raise Exception ("Impossible d'ajouter  le score au joueur , joueur inexistant ")
         
     
+    def get_last_round(self):
+        
+        if self.index_current_round <= -1:
+            
+            raise Exception ("Il n'y a pas de round ")
+        
+        if len(self.round_list) <= self.index_current_round:
+            raise Exception ("Le nombre de round est inferieur à l'index")
+        return self.round_list[self.index_current_round]
+        
         
     
    
@@ -238,7 +252,7 @@ class PlayerManager():
             save_file.close()
         
         except Exception as error:
-            print("Error saving players info : ",error)
+            raise Exception (f"Error saving players info : {error}")
         
     # penser a ferme le fichier
     
@@ -279,8 +293,9 @@ class Round(object):# capable de faire
     def start(self):
         self.start= datetime.now()
        
-    def end(self):
+    def end_round(self):
         self.end = datetime.now()
+        
         
         
         

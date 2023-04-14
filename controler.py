@@ -82,8 +82,23 @@ class Controler:
         else:
             raise Exception ("Choisi 1,2 ou 0 fdp")
         
-        tournament.add_score_to_player(match[0][1],match[0][0])
+        tournament.add_score_to_player(match[0][1],match[0][0])# les scores
         tournament.add_score_to_player(match[1][1],match[1][0])
+        try:
+            last_round=tournament.get_last_round()
+            
+            for m in last_round.matchs:
+                if m[0][1] == None  or m [1][1] == None:
+                    break
+            else:    
+                last_round.end_round()
+                
+            
+        except Exception as error :
+            raise Exception (f"Impossible de recuperer le dernier round : {error}")
+            
+        
+
         
         
         

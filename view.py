@@ -39,8 +39,14 @@ class View(object):
         elif choose == "4":
             pass
         elif choose =="5":
-            self.controler.save()
-            print("\nCa a bien ete sauvegarde \n")
+            try:
+                self.controler.save()
+                
+                print("\nCa a bien ete sauvegarde \n")
+                
+            except Exception as error:
+                print(f"Impossible de sauvegarder : {error}")
+                
             
         else:
             self.exit_back(choose,sys.exit)
@@ -90,7 +96,6 @@ class View(object):
         
         
         try:
-            
             
             self.controler.add_player(name, first_name, born,id)
             print(f"Ton joueur : {name} avec l'id :{id} a ete crée fdp")
@@ -220,8 +225,7 @@ class View(object):
             print(f"Impossible de faire le round : {error}")
             
              
-        
-        
+    
     
     def end_match(self):
         selected_tournament= self.ask_tournament()
@@ -325,6 +329,8 @@ class View(object):
             return
         
         for matchou in last_round.matchs:
+            if matchou[1][0] == None:
+                continue
             print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
             index += 1
             
