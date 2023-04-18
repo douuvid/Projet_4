@@ -3,7 +3,7 @@ import sys
 from collections.abc import Callable
 from controler import Controler
 from prettytable import PrettyTable
-import json
+
 
 class View(object): 
      
@@ -18,9 +18,8 @@ class View(object):
         print("Tu as le choix entre : ") 
         print("1: Joueur")
         print("2: Tournois")
-        print("3: Histoirque des joueurs et des maths ")
-        print("4: Connaitre quand aura lieux le match de ton choix  ")
-        print("5: Sauvegarde")
+        print("3: Sauvegarde")
+        
         choose= None
         while choose == None:
             choose = self.ask_string("Fait ton choix (met un chiffre)")
@@ -32,13 +31,7 @@ class View(object):
             self.tournament_menu()
                 
         elif choose == "3":
-            print("Te voila dans l'historique. Tu pourras consulter toutes les donnnes et  voir les stats des joueur  notamment les plus nuls haha ")
-            ## faire le menu des 3 categories =
-            #l'idee serait de pouvoir recupere les info d'un joueur precis ?
-
-        elif choose == "4":
-            pass
-        elif choose =="5":
+           
             try:
                 self.controler.save()
                 
@@ -47,6 +40,10 @@ class View(object):
             except Exception as error:
                 print(f"Impossible de sauvegarder : {error}")
                 
+            
+       
+               
+            
             
         else:
             self.exit_back(choose,sys.exit)
@@ -127,6 +124,7 @@ class View(object):
         print("\n3: Inscrire un joueur au tournois fdp \n ")
         print("\n4: Gerer les match fdp \n ")
         print("\n5: Commencer un round \n ")
+        print("\n6: Cloturer \n ")
         choose = None
         while choose == None:
             choose = self.ask_string("Indique ton choix")
@@ -143,6 +141,15 @@ class View(object):
             
         elif choose =="5":
             self.start_round()
+            
+        elif choose == '6':
+            
+            tournament = None
+            while tournament == None:
+                tournament=self.ask_tournament()
+               
+            self.controler.close_tournament(tournament)
+            print(f"Cloture effectué :  {tournament}")
             
         else:
             self.exit_back(choose, self.menu)
@@ -235,9 +242,11 @@ class View(object):
             
         except Exception as error :
             print(f"Impossible d'obtenir le dernier round  :{error}")
+            self.tournament_menu()
+            return
         select_match = self.ask_match(last_round)
         
-        print(select_match)
+        
         
         tableau_score = [1,2,0]
         score = None

@@ -7,15 +7,23 @@ from random import shuffle
 
 class Tournament():
     
-    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = [],players=[],index_current_round=-1,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
+    def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = None,players=None,index_current_round=-1,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
+        if round_list == None:
+            round_list = []
+        else:
+            self.round_list = round_list
+            
+        if players == None:
+            players = []
+        else:
+            self.players = players
+        
         self.name = name
         self.address = address
         self.start = start
         self.end = end
         self.nb_rounds= nb_rounds
         self.description = description
-        self.round_list = round_list
-        self.players = players
         self.index_current_round = index_current_round
         self.is_open = is_open
         
@@ -32,21 +40,34 @@ class Tournament():
         if not self.is_open:
             raise Exception ('Le tournois est termine ')
         
+        
+        if self.index_current_round != -1 and self.round_list [-1].end == None :
+            raise Exception ("Le precdent round n'est pas terminer ")
         # ==> Ici on secur que nos  listes (voir si elle existe, )
         
         round_number = self.index_current_round + 2
         round= Round("Round "+str(round_number),start= start)
-        players_by_score = []# pour creer des case dispo (une liste avec une longueur connu d'avance )
         
-        
+        players_by_score = self.get_players_by_score()
     
+        self.create_matchs(players_by_score,round)
+        
+        self.round_list.append(round)
+        self.index_current_round +=1
+
+
+
+
+    def get_players_by_score(self):
+        players_by_score = []
         for player in self.players :
             while len(players_by_score) <= player[1] :
                 players_by_score.append([])
             players_by_score[player[1]].append(player[0])
-        
-        players_by_score.reverse()#Pour commecner la liste des joeur oar le plus fort et pour eviter que le joueur le plus fort soit avantager
-        
+        players_by_score.reverse()#Pour commecner la liste des joueur par le plus fort et pour eviter que le joueur le plus fort soit avantager
+        return players_by_score
+    
+    def create_matchs(self, players_by_score,round):
         selected_players = []
         for player_list in players_by_score:
             
@@ -64,10 +85,12 @@ class Tournament():
             match_ = round.matchs[-1]
             match_[0][1] = 2
             match_[1][1] = 0
+            self.add_score_to_player(2,selected_players[0])
             
-        self.round_list.append(round)
-        self.index_current_round +=1
         
+    
+    
+    
         
     def to_dict(self):
         
@@ -98,7 +121,7 @@ class Tournament():
         
         if "matchs" in dict:
             return Round.from_dict(dict)
-        return Tournament( dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],dict["round_list"],dict["players"],dict["index_current_round"],dict["is_open"])
+        return Tournament(dict["name"],dict["address"],datetime.fromisoformat(dict["start"]),datetime.fromisoformat(dict["end"]),dict["nb_rounds"],dict["description"],dict["round_list"],dict["players"],dict["index_current_round"],dict["is_open"])
     
    
             
@@ -107,19 +130,28 @@ class Tournament():
         for pl in self.players:
             if pl[0].id == player.id: ## 
                 raise Exception("le joueur avec l'id "+ player.id +" est deja inscrit ")
-        self.players.append((player,0))
-    ######è
+        self.players.append([player,0])
+    ######
     
     def __str__(self):
         return f"{self.name},{self.start},{self.end}{self.address}{self.description}"
     
     def close_tournament(self):
-      self.is_open= False
+        self.is_open= False
+    
+    
+#scrore  null ca vx dire que le mztch est pas terminer
+   # verifier si tu  es dans le denreir round 
+   # 
+        
+     
+     
+
       
     def add_score_to_player(self,score:int,player):
         for pl in self.players:
             if pl[0].id == player.id:
-                pl[1] += score
+                pl[1] = pl[1] + score
                 break
         else:
             raise Exception ("Impossible d'ajouter  le score au joueur , joueur inexistant ")
@@ -141,7 +173,7 @@ class Tournament():
     
 class TournamentManager():
     def __init__(self,save_file_name= "tournaments.json"):
-    
+        
         self.save_file_name = save_file_name
         self.list_tournaments= []
         self.load()
@@ -277,20 +309,24 @@ class PlayerManager():
         except Exception as error:
             print("Error loading players info : ",error)
         
-    #au lieu d'avoir un tableau de player avoir un tableau de dictionnaire dans la fonction save 
+    #au lieu d'avoir un tableau de player avoir un tableau de dictionnaire dans la fonction add 
         
         
 
 
 class Round(object):# capable de faire 
-    def __init__(self,name,matchs= [],start:datetime | NoneType = None,end: datetime | NoneType = None):
-        self.matchs = matchs
+    def __init__(self,name,matchs= None ,start:datetime | NoneType = None,end: datetime | NoneType = None):
+        if matchs == None:
+            self.matchs = []
+        else:
+            self.matchs = matchs
         self.start = start
         self.end = end
         self.name= name
+        
     
     
-    def start(self):
+    def start_round(self):
         self.start= datetime.now()
        
     def end_round(self):
@@ -346,7 +382,8 @@ class Round(object):# capable de faire
             
             
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
-    
+        #On cree un objet round avec les element qu'on trouve dans le json
+        #
   
         
         
@@ -367,3 +404,8 @@ class Round(object):# capable de faire
 # tournament_manager =TournamentManager()
 # tournament_manager.add_tournament(tournois)
 # tournament_manager.save()
+
+
+
+
+# les tournois sont encore ouvert faire une fonction pur ferme les tournours

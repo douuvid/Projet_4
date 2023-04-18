@@ -2,7 +2,7 @@
 # lci c'est la view qui stock le controleur. C'est la view qui questionne le controleur 
 # c'est lui qui decide qui joue avec qui(c'est le cerveau) ensuite stock lle round dans tournois
 
-from models import Player, PlayerManager,Round
+from models import Player, PlayerManager
 from models import TournamentManager,Tournament
 from datetime import datetime
 
@@ -59,7 +59,7 @@ class Controler:
     # result_match : 0: egalite
     
     def end_match(self,match,tournament:Tournament,result_match:int):
-
+        
         
         if result_match == 1:
             match[0][1] = 2
@@ -78,7 +78,7 @@ class Controler:
         
         
         elif len(match) > tournament.nb_rounds:
-            raise Exception ("Fin du round")
+            raise Exception ("Fin du tournois")
         else:
             raise Exception ("Choisi 1,2 ou 0 fdp")
         
@@ -135,7 +135,7 @@ class Controler:
         
         
         
-        
-    
+    def close_tournament(self,tounament: Tournament):
+        tounament.close_tournament()
 
     
