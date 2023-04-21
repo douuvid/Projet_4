@@ -57,8 +57,8 @@ class View(object):
         print("")
         choose = None
         while choose is None:
-            choose = self.ask_string("Ta le choix entre consulter \
-                ou creer fdp (pas les deux en meme temps) ")
+            choose = self.ask_string("Ta le choix entre consulter \n"
+                "ou creer fdp (pas les deux en meme temps) ")
 
         if choose == "1":
             print("")
