@@ -1,23 +1,17 @@
 # Le controler utilise le model et les view comme bion lui semble sert de navigation
 # lci c'est la view qui stock le controleur. C'est la view qui questionne le controleur 
 # c'est lui qui decide qui joue avec qui(c'est le cerveau) ensuite stock lle round dans tournois
-
 from models import Player, PlayerManager
 from models import TournamentManager,Tournament
 from datetime import datetime
-
-
 class Controler:
     def __init__(self):
         #model
         self.player_manager = PlayerManager()
         self.tournament_manager = TournamentManager()
         
-        
-    
-
     def add_player(self, name, first_name, born, id):
-        if name == None or first_name ==None or born ==None or id == None:
+        if name is None or first_name ==None or born ==None or id is None:
             raise Exception("Impossible de creer le joeur ")
         player = Player(name, first_name, born,id)
         

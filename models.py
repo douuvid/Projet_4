@@ -8,12 +8,12 @@ from random import shuffle
 class Tournament():
     
     def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = None,players=None,index_current_round=-1,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
-        if round_list == None:
+        if round_list is None:
             round_list = []
         else:
             self.round_list = round_list
             
-        if players == None:
+        if players is None:
             players = []
         else:
             self.players = players
@@ -41,7 +41,7 @@ class Tournament():
             raise Exception ('Le tournois est termine ')
         
         
-        if self.index_current_round != -1 and self.round_list [-1].end == None :
+        if self.index_current_round != -1 and self.round_list [-1].end is None :
             raise Exception ("Le precdent round n'est pas terminer ")
         # ==> Ici on secur que nos  listes (voir si elle existe, )
         
@@ -316,7 +316,7 @@ class PlayerManager():
 
 class Round(object):# capable de faire 
     def __init__(self,name,matchs= None ,start:datetime | NoneType = None,end: datetime | NoneType = None):
-        if matchs == None:
+        if matchs is None:
             self.matchs = []
         else:
             self.matchs = matchs
