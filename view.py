@@ -48,8 +48,6 @@ class View(object):
 #   _______________________________PLAYER_____________________________________
 
     def player_menu(self):
-        # print(f"")mettre le nombre de de player enregistree
-
         print("Menu Player : \n")
         print("\n1 : Consulter\n")
         print("\n2 : Creation \n")
@@ -57,8 +55,7 @@ class View(object):
         print("")
         choose = None
         while choose is None:
-            choose = self.ask_string("Ta le choix entre consulter \n"
-                "ou creer fdp (pas les deux en meme temps) ")
+            choose = self.ask_string("Ta le choix entre consulter \n""ou creer fdp (pas les deux en meme temps)")
 
         if choose == "1":
             print("")
@@ -141,7 +138,7 @@ class View(object):
         elif choose == '6':
             tournament = None
             while tournament is None:
-                tournament=self.ask_tournament()
+                tournament = self.ask_tournament()
             self.controler.close_tournament(tournament)
             print(f"Cloture effectué :  {tournament}")
         else:
@@ -149,7 +146,7 @@ class View(object):
 
     def debut_tournois(self):
         print("\nEntre les info pour la creation d'un tournois fdp \n")
-        my_table= PrettyTable()
+        my_table = PrettyTable()
         my_table.field_names = ["Nom", "Date de debut", "Date de fin", "Adresse"]
 
         name, start, end, address = None, None, None, None
@@ -179,7 +176,7 @@ class View(object):
             address = self.ask_string("Quelle est votre adress")
         my_table.add_row([name, start, end, address])
         print(my_table)
-        self.controler.create_tournament(name, start, end, address) 
+        self.controler.create_tournament(name, start, end, address)
 
     def consulter_tournois(self):
 
@@ -189,15 +186,15 @@ class View(object):
             for list in list_tournois:
                 print(list)
         else:
-                print("\nIl n'y a pas de tournois \n ")
+            print("\nIl n'y a pas de tournois \n ")
 
     def inscription(self):
         print("\n Bonjour vous voici dans l'etape de l'inscription")
         try:
             name, id_player = None, None
             while name is None:
-                name =self.ask_string("Rentrer le nom  du tournois  ")
-            tournament =self.controler.get_tournement_by_name(name)
+                name = self.ask_string("Rentrer le nom  du tournois  ")
+            tournament = self.controler.get_tournement_by_name(name)
             while id_player is None:
                 id_player = self.ask_string("Rentrer l'id  du joueur ")
             player = self.controler.get_player_by_id(id_player)
@@ -211,7 +208,7 @@ class View(object):
 
         tournament = None
         while tournament is None:
-            tournament = self.ask_tournament() 
+            tournament = self.ask_tournament()
         try:
             self.controler.start_round(tournament)
 
@@ -222,7 +219,7 @@ class View(object):
         selected_tournament = self.ask_tournament()
         print(selected_tournament.name)
         try:
-            last_round =self.controler.get_last_round(selected_tournament)
+            last_round = self.controler.get_last_round(selected_tournament)
 
         except Exception as error:
             print(f"Impossible d'obtenir le dernier round  :{error}")
@@ -232,7 +229,7 @@ class View(object):
         tableau_score = [1, 2, 0]
         score = None
         while score is None:
-            score = self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ") 
+            score = self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ")
             if score is not None and score not in tableau_score:
                 print("Tu t'es tromper selectionne un chiffre (1,2 ou 0)")
         self.controler.end_match(select_match, selected_tournament, score)
@@ -250,7 +247,7 @@ class View(object):
             return None
         return name
 
-    def ask_date(self, question, time: bool = False): 
+    def ask_date(self, question, time: bool = False):
 
         format = "%d/%m/%Y"
         date = input(question)
@@ -261,7 +258,7 @@ class View(object):
             if not time:
                 date = date.date()
         except ValueError:
-            error ="La date doit etre au format jj/mm/aaaa "
+            error = "La date doit etre au format jj/mm/aaaa "
             if time:
                 error = error + "heure:minute"
             print(error)
@@ -278,11 +275,11 @@ class View(object):
 
     def ask_tournament(self):
         index = 1
-        open_tournaments=self.controler.get_open_tournaments()
+        open_tournaments = self.controler.get_open_tournaments()
         if len(open_tournaments) == 0:
             print("Aucun tournois en cours ")
             self.tournament_menu()
-            return 
+            return
         for tournement in open_tournaments:
             print(f"{index} : {tournement.name}")
             index += 1
@@ -290,13 +287,13 @@ class View(object):
         index_choose = None
         while index_choose is None:
             index_choose = self.ask_int("Quel est le tournois concerné ?")
-            if index_choose is not None and (index_choose > len(open_tournaments) or index_choose <1):
+            if index_choose is not None and (index_choose > len(open_tournaments) or index_choose < 1):
                 index_choose = None
                 print("Mauvais choix fdp")
-        return open_tournaments[index_choose -1] 
+        return open_tournaments[index_choose - 1]
 
     def ask_match(self, last_round):
-        index = 1 
+        index = 1
         if len(last_round.matchs) == 0:
             print('Aucun match en cours')
             self.tournament_menu()
@@ -314,7 +311,7 @@ class View(object):
             if indexou_choose is not None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
                 indexou_choose = None
                 print("Mauvais choix de match  fdp")
-        return last_round.matchs[indexou_choose -1]
+        return last_round.matchs[indexou_choose - 1]
 
     def exit_back(self, choose: str, back: Callable):
         if choose == "exit":

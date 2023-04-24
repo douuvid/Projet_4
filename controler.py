@@ -1,5 +1,5 @@
 # Le controler utilise le model et les view comme bion lui semble sert de navigation
-# lci c'est la view qui stock le controleur. C'est la view qui questionne le controleur 
+# lci c'est la view qui stock le controleur. C'est la view qui questionne le controleur
 # c'est lui qui decide qui joue avec qui(c'est le cerveau) ensuite stock lle round dans tournois
 from models import Player, PlayerManager
 from models import TournamentManager, Tournament
@@ -31,7 +31,7 @@ class Controler:
         self.tournament_manager.add_tournament(tournament)
 
     def get_player_by_id(self, id):
-        list_player=self.player_manager.list_player
+        list_player = self.player_manager.list_player
         for player in list_player:
             if player.id == id:
                 return player
@@ -39,13 +39,11 @@ class Controler:
         raise Exception(f"Le joueur avec l'id : {id}, n'existe pas")
 
     def get_list_tournement(self):
-        list_tournement =self.tournament_manager.list_tournaments
+        list_tournement = self.tournament_manager.list_tournaments
         return list_tournement
 
     def get_open_tournaments(self):
         return self.tournament_manager.get_open_tournaments()
-
-
 
     # result_match : 1 = joueur 1 gagner
     # result_match : 2 = joueur 2 gagne
@@ -70,11 +68,11 @@ class Controler:
         tournament.add_score_to_player(match[0][1], match[0][0])
         tournament.add_score_to_player(match[1][1], match[1][0])
         try:
-            last_round=tournament.get_last_round()
+            last_round = tournament.get_last_round()
             for m in last_round.matchs:
                 if m[0][1] is None or m[1][1] is None:
                     break
-            else:    
+            else:
                 last_round.end_round()
 
         except Exception as error:
@@ -84,7 +82,7 @@ class Controler:
         self.tournament_manager.save()
 
     def get_tournement_by_name(self, name):
-        tournaments=self.tournament_manager.list_tournaments
+        tournaments = self.tournament_manager.list_tournaments
         for tournament in tournaments:
             if tournament.name == name:
                 return tournament
@@ -93,7 +91,7 @@ class Controler:
 
     def register_player_to_tournament(self, player: Player, tournament: Tournament):
         now = datetime.now()
-        start=tournament.start
+        start = tournament.start
         if start < now:
             raise Exception("Trop tard pour s'inscrire ")
         tournament.register_player(player)
