@@ -115,6 +115,9 @@ class View(object):
             print("Impossible d'afficher les données du joueur : ",error)
         self.player_menu()
     
+    
+
+        
     #__________________________ TOURNAMENT ____________________________________
     
     def tournament_menu(self):
@@ -149,12 +152,20 @@ class View(object):
                 tournament=self.ask_tournament()
                
             self.controler.close_tournament(tournament)
-            print(f"Cloture effectué :  {tournament}")
+            
+            self.display_classment(tournament)
+            print(f"Cloture effectué :  {tournament}\n")
+            
             
         else:
             self.exit_back(choose, self.menu)
         
-    
+    def display_classment(self,tournament):
+        tournament.players.sort(key=lambda player: player[1], reverse= True)
+        for pl in tournament.players:
+            print(f"Le joueur {pl[0].name} {pl[0].first_name}  a obtenue {pl[1]} point(s)\n")
+        
+        
     def debut_tournois(self):#
         print("\nEntre les info pour la creation d'un tournois fdp \n")
         my_table= PrettyTable()
@@ -235,10 +246,12 @@ class View(object):
     
     
     def end_match(self):
-        selected_tournament= self.ask_tournament()
-        print(selected_tournament.name)
+        tournament = None 
+        while tournament == None:
+            tournament=self.ask_tournament()
+        
         try:
-            last_round =self.controler.get_last_round(selected_tournament)
+            last_round =self.controler.get_last_round(tournament)
             
         except Exception as error :
             print(f"Impossible d'obtenir le dernier round  :{error}")
@@ -256,7 +269,7 @@ class View(object):
                 print("Tu t'es tromper selectionne un chiffre (1,2 ou 0)")
         
     
-        self.controler.end_match(select_match,selected_tournament, score)
+        self.controler.end_match(select_match,tournament, score)
         print("le match est Terminer  ")
         
         #end= self.ask_string("Quel match est termine ? ") 
@@ -316,6 +329,7 @@ class View(object):
         if len(open_tournaments) ==0:
             print("Aucun tournois en cours ")
             self.tournament_menu()
+            
             return 
         for tournement in open_tournaments:
             print(f"{index} : {tournement.name}")
@@ -366,7 +380,7 @@ class View(object):
     
 
     
-
+    
 
 #30/mars:
 # Pb sur la sauvegarde des tournois, l

@@ -10,13 +10,13 @@ class Tournament():
     def __init__(self,name,address,start:datetime,end:datetime,nb_rounds = 4 ,description = "",round_list = None,players=None,index_current_round=-1,is_open = True,): # les element necessaire pour creer un tournois (obligatoire)
         if round_list == None:
             round_list = []
-        else:
-            self.round_list = round_list
+        
+        self.round_list = round_list
             
         if players == None:
             players = []
-        else:
-            self.players = players
+        
+        self.players = players
         
         self.name = name
         self.address = address

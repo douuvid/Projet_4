@@ -1,41 +1,41 @@
-[{ "name": "ZERT", "address": "EZA", "start": "2023-12-12T12:12:00", "end": "2023-12-12T12:14:00", "nb_rounds": 4, "description": "", "round_list": [{ "name": "Round 1", "matchs": [
+[{ "name": "r", "address": "bhnj", "start": "2030-12-12T12:12:00", "end": "2030-12-12T12:14:00", "nb_rounds": 4, "description": "", "round_list": [{ "name": "Round 1", "matchs": [
             [
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 2],
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 0]
+                [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 2],
+                [{ "name": "ravin", "first_name": "davidf", "id": "1234", "born": "2000-12-12" }, 0]
             ],
             [
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 2],
+                [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 2],
                 [null, 0]
             ]
-        ], "start": "2023-04-18T13:19:39.315031", "end": "2023-04-18T13:21:42.001235" }, { "name": "Round 2", "matchs": [
+        ], "start": "2023-05-05T12:54:44.863078", "end": "2023-05-05T13:17:30.018888" }, { "name": "Round 2", "matchs": [
             [
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 2],
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 0]
+                [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 0],
+                [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 2]
             ],
             [
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 2],
+                [{ "name": "ravin", "first_name": "davidf", "id": "1234", "born": "2000-12-12" }, 2],
                 [null, 0]
             ]
-        ], "start": "2023-04-18T13:19:39.315031", "end": "2023-04-18T13:22:32.482583" }, { "name": "Round 3", "matchs": [
+        ], "start": "2023-05-05T13:17:06.414112", "end": "2023-05-05T13:22:08.809699" }, { "name": "Round 3", "matchs": [
             [
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 2],
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 0]
+                [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 2],
+                [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 0]
             ],
             [
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 2],
+                [{ "name": "ravin", "first_name": "davidf", "id": "1234", "born": "2000-12-12" }, 2],
                 [null, 0]
             ]
-        ], "start": "2023-04-18T13:19:39.315031", "end": "2023-04-18T13:24:12.237513" }, { "name": "Round 4", "matchs": [
+        ], "start": "2023-05-05T13:20:55.708085", "end": "2023-05-05T13:22:57.821905" }, { "name": "Round 4", "matchs": [
             [
-                [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 2],
-                [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 0]
+                [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 2],
+                [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 0]
             ],
             [
-                [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 2],
+                [{ "name": "ravin", "first_name": "davidf", "id": "1234", "born": "2000-12-12" }, 2],
                 [null, 0]
             ]
-        ], "start": "2023-04-18T13:30:00.696267", "end": "2023-04-18T13:30:39.477639" }], "players": [
-        [{ "name": "Azerty", "first_name": "treza", "id": "12345", "born": "2000-12-12" }, 5],
-        [{ "name": "etc", "first_name": "nioko", "id": "9876", "born": "2000-12-12" }, 9],
-        [{ "name": "siaiaz", "first_name": "ancao", "id": "8765", "born": "2000-12-12" }, 4]
+        ], "start": "2023-05-05T13:20:55.708085", "end": "2023-05-05T13:23:43.098196" }], "players": [
+        [{ "name": "ravin", "first_name": "davidf", "id": "1234", "born": "2000-12-12" }, 6],
+        [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 6],
+        [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 10]
     ], "index_current_round": 3, "is_open": true }]
