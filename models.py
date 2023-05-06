@@ -10,7 +10,6 @@ class Tournament():
                  nb_rounds=4, description="", round_list=None, players=None, index_current_round=-1, is_open=True):
         if round_list is None:
             round_list = []
-<<<<<<< HEAD
         
         self.round_list = round_list
             
@@ -19,16 +18,6 @@ class Tournament():
         
         self.players = players
         
-=======
-        else:
-            self.round_list = round_list
-
-        if players is None:
-            players = []
-        else:
-            self.players = players
-
->>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         self.name = name
         self.address = address
         self.start = start
@@ -292,14 +281,7 @@ class Round(object):
     @classmethod
     def from_dict(self, dict):
         if dict["start"] is not None:
-<<<<<<< HEAD
             dict["start"]=datetime.fromisoformat(dict["start"])
         if dict["end"] is not None:
             dict["end"]=datetime.fromisoformat(dict["end"])
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
-=======
-            dict["start"] = datetime.fromisoformat(dict["start"])
-        if dict["end"] is not None:
-            dict["end"] = datetime.fromisoformat(dict["end"])
-        return Round(dict["name"], dict["matchs"], dict["start"], dict["end"])
->>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
