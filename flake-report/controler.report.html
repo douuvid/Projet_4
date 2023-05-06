@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>flake8 violations: controler.py</title>
+    <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function bindHandler(link) {
+            var code = link.getAttribute('data-code');
+            var key = location.pathname + '#' + code;
+
+            var ul = link.parentNode.querySelector('.details');
+            if (sessionStorage[key] != 'open') {
+                ul.style.display = 'none';
+            }
+            link.addEventListener('click', function(event) {
+                if (!ul.style.display || ul.style.display == 'none') {
+                    ul.style.display = 'block';
+                    sessionStorage[key] = 'open';
+                } else {
+                    ul.style.display = 'none';
+                    sessionStorage[key] = 'closed';
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var links = document.querySelectorAll('#index > li > a');
+            for (var i = 0; i < links.length; i++) {
+                bindHandler(links[i]);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="masthead" class="sev-2"></div>
+    <div id="page">
+        <p id="srclink">
+            <a title="View full annotated source" href="controler.source.html">
+                <img src="file.svg" alt="&#x2261;">
+            </a>
+        </p>
+        <h1>
+            <a href="index.html">
+                <img src="back.svg" alt="&#x2B05;"> controler.py
+            </a>
+        </h1>
+
+        <ul id="index">
+
+            <li>
+                <a data-code="W293">
+                    <span class="count sev-2">
+                  49
+               </span>
+                    <strong>W293:</strong> blank line contains whitespace
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l15">
+                            <tt><i>15</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l16">
+                            <tt><i>16</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l17">
+                            <tt><i>17</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l23">
+                            <tt><i>23</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l25">
+                            <tt><i>25</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l26">
+                            <tt><i>26</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l29">
+                            <tt><i>29</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l30">
+                            <tt><i>30</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l34">
+                            <tt><i>34</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l38">
+                            <tt><i>38</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l39">
+                            <tt><i>39</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l45">
+                            <tt><i>45</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l47">
+                            <tt><i>47</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l51">
+                            <tt><i>51</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l54">
+                            <tt><i>54</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l55">
+                            <tt><i>55</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l56">
+                            <tt><i>56</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l60">
+                            <tt><i>60</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l62">
+                            <tt><i>62</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l63">
+                            <tt><i>63</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l67">
+                            <tt><i>67</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l68">
+                            <tt><i>68</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l72">
+                            <tt><i>72</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l73">
+                            <tt><i>73</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l77">
+                            <tt><i>77</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l78">
+                            <tt><i>78</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l79">
+                            <tt><i>79</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l84">
+                            <tt><i>84</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l89">
+                            <tt><i>89</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l95">
+                            <tt><i>95</i>                 </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l96">
+                            <tt><i>96</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l99">
+                            <tt><i>99</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l100">
+                            <tt><i>100</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l102">
+                            <tt><i>102</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l103">
+                            <tt><i>103</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l104">
+                            <tt><i>104</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l107">
+                            <tt><i>107</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l113">
+                            <tt><i>113</i>             </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l115">
+                            <tt><i>115</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l116">
+                            <tt><i>116</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l123">
+                            <tt><i>123</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l124">
+                            <tt><i>124</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l129">
+                            <tt><i>129</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l130">
+                            <tt><i>130</i>     </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l134">
+                            <tt><i>134</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l135">
+                            <tt><i>135</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l136">
+                            <tt><i>136</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l137">
+                            <tt><i>137</i>         </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l141">
+                            <tt><i>141</i>     </tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E231">
+                    <span class="count sev-2">
+                  26
+               </span>
+                    <strong>E231:</strong> missing whitespace after ',' (and 1 similar)
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l6">
+                            <tt><i>6</i> <span class="kn">from</span> <span class="nn">models</span> <span class="kn">import</span> <span class="n">TournamentManager</span><span class="p">,</span><span class="n">Tournament</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l22">
+                            <tt><i>22</i>         <span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">born</span><span class="p">,</span><span class="nb">id</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',' (in 3 places):</p>
+
+                        <a href="controler.source.html#l35">
+                            <tt><i>35</i>     <span class="k">def</span> <span class="nf">create_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span> <span class="n">start</span> <span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">address</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',' (in 3 places):</p>
+
+                        <a href="controler.source.html#l36">
+                            <tt><i>36</i>         <span class="n">tournament</span> <span class="o">=</span> <span class="n">Tournament</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">address</span><span class="p">,</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l40">
+                            <tt><i>40</i>     <span class="k">def</span> <span class="nf">get_player_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',' (in 3 places):</p>
+
+                        <a href="controler.source.html#l61">
+                            <tt><i>61</i>     <span class="k">def</span> <span class="nf">end_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">match</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">,</span><span class="n">result_match</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ':' (in 2 places):</p>
+
+                        <a href="controler.source.html#l61">
+                            <tt><i>61</i>     <span class="k">def</span> <span class="nf">end_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">match</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">,</span><span class="n">result_match</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l85">
+                            <tt><i>85</i>         <span class="n">tournament</span><span class="o">.</span><span class="n">add_score_to_player</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="c1"># les scores</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l86">
+                            <tt><i>86</i>         <span class="n">tournament</span><span class="o">.</span><span class="n">add_score_to_player</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l108">
+                            <tt><i>108</i>     <span class="k">def</span> <span class="nf">get_tournement_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',' (in 2 places):</p>
+
+                        <a href="controler.source.html#l117">
+                            <tt><i>117</i>     <span class="k">def</span> <span class="nf">register_player_to_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">player</span><span class="p">:</span><span class="n">Player</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ':' (in 2 places):</p>
+
+                        <a href="controler.source.html#l117">
+                            <tt><i>117</i>     <span class="k">def</span> <span class="nf">register_player_to_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">player</span><span class="p">:</span><span class="n">Player</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l125">
+                            <tt><i>125</i>     <span class="k">def</span> <span class="nf">get_last_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ':':</p>
+
+                        <a href="controler.source.html#l125">
+                            <tt><i>125</i>     <span class="k">def</span> <span class="nf">get_last_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l131">
+                            <tt><i>131</i>     <span class="k">def</span> <span class="nf">start_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ':':</p>
+
+                        <a href="controler.source.html#l131">
+                            <tt><i>131</i>     <span class="k">def</span> <span class="nf">start_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace after ',':</p>
+
+                        <a href="controler.source.html#l138">
+                            <tt><i>138</i>     <span class="k">def</span> <span class="nf">close_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tounament</span><span class="p">:</span> <span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E303">
+                    <span class="count sev-2">
+                  15
+               </span>
+                    <strong>E303:</strong> too many blank lines (4) (and 3 similar)
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Too many blank lines (4):</p>
+
+                        <a href="controler.source.html#l19">
+                            <tt><i>19</i>     <span class="k">def</span> <span class="nf">add_player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">first_name</span><span class="p">,</span> <span class="n">born</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l27">
+                            <tt><i>27</i>     <span class="k">def</span> <span class="nf">get_list_players</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l31">
+                            <tt><i>31</i>     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l40">
+                            <tt><i>40</i>     <span class="k">def</span> <span class="nf">get_player_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (3):</p>
+
+                        <a href="controler.source.html#l57">
+                            <tt><i>57</i>     <span class="c1"># result_match : 1  = joueur 1 gagner</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l64">
+                            <tt><i>64</i>         <span class="k">if</span> <span class="n">result_match</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l69">
+                            <tt><i>69</i>         <span class="k">elif</span> <span class="n">result_match</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l74">
+                            <tt><i>74</i>         <span class="k">elif</span> <span class="n">result_match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (3):</p>
+
+                        <a href="controler.source.html#l80">
+                            <tt><i>80</i>         <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tournament</span><span class="o">.</span><span class="n">nb_rounds</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l97">
+                            <tt><i>97</i>         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span> <span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (6):</p>
+
+                        <a href="controler.source.html#l105">
+                            <tt><i>105</i>     <span class="k">def</span> <span class="nf">sav_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l117">
+                            <tt><i>117</i>     <span class="k">def</span> <span class="nf">register_player_to_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">player</span><span class="p">:</span><span class="n">Player</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l125">
+                            <tt><i>125</i>     <span class="k">def</span> <span class="nf">get_last_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (2):</p>
+
+                        <a href="controler.source.html#l131">
+                            <tt><i>131</i>     <span class="k">def</span> <span class="nf">start_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Too many blank lines (4):</p>
+
+                        <a href="controler.source.html#l138">
+                            <tt><i>138</i>     <span class="k">def</span> <span class="nf">close_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tounament</span><span class="p">:</span> <span class="n">Tournament</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E225">
+                    <span class="count sev-2">
+                  7
+               </span>
+                    <strong>E225:</strong> missing whitespace around operator
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Missing whitespace around operator (in 2 places):</p>
+
+                        <a href="controler.source.html#l20">
+                            <tt><i>20</i>         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">first_name</span> <span class="o">==</span><span class="kc">None</span> <span class="ow">or</span> <span class="n">born</span> <span class="o">==</span><span class="kc">None</span> <span class="ow">or</span> <span class="nb">id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace around operator:</p>
+
+                        <a href="controler.source.html#l41">
+                            <tt><i>41</i>         <span class="n">list_player</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">player_manager</span><span class="o">.</span><span class="n">list_player</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace around operator:</p>
+
+                        <a href="controler.source.html#l49">
+                            <tt><i>49</i>         <span class="n">list_tournement</span> <span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tournament_manager</span><span class="o">.</span><span class="n">list_tournaments</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace around operator:</p>
+
+                        <a href="controler.source.html#l88">
+                            <tt><i>88</i>             <span class="n">last_round</span><span class="o">=</span><span class="n">tournament</span><span class="o">.</span><span class="n">get_last_round</span><span class="p">()</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace around operator:</p>
+
+                        <a href="controler.source.html#l109">
+                            <tt><i>109</i>         <span class="n">tournaments</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tournament_manager</span><span class="o">.</span><span class="n">list_tournaments</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Missing whitespace around operator:</p>
+
+                        <a href="controler.source.html#l119">
+                            <tt><i>119</i>         <span class="n">start</span><span class="o">=</span><span class="n">tournament</span><span class="o">.</span><span class="n">start</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E211">
+                    <span class="count sev-2">
+                  6
+               </span>
+                    <strong>E211:</strong> whitespace before '(' (and 1 similar)
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Whitespace before '(':</p>
+
+                        <a href="controler.source.html#l81">
+                            <tt><i>81</i>             <span class="k">raise</span> <span class="ne">Exception</span> <span class="p">(</span><span class="s2">&quot;Fin du tournois&quot;</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before '(':</p>
+
+                        <a href="controler.source.html#l83">
+                            <tt><i>83</i>             <span class="k">raise</span> <span class="ne">Exception</span> <span class="p">(</span><span class="s2">&quot;Choisi 1,2 ou 0  &quot;</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before '[':</p>
+
+                        <a href="controler.source.html#l91">
+                            <tt><i>91</i>                 <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>  <span class="ow">or</span> <span class="n">m</span> <span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before '(':</p>
+
+                        <a href="controler.source.html#l98">
+                            <tt><i>98</i>             <span class="k">raise</span> <span class="ne">Exception</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Impossible de recuperer le dernier round : </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before '(':</p>
+
+                        <a href="controler.source.html#l121">
+                            <tt><i>121</i>             <span class="k">raise</span> <span class="ne">Exception</span> <span class="p">(</span><span class="s2">&quot;Trop tard pour s&#39;inscrire &quot;</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before '(':</p>
+
+                        <a href="controler.source.html#l127">
+                            <tt><i>127</i>             <span class="k">raise</span> <span class="ne">Exception</span> <span class="p">(</span><span class="s2">&quot;No round on this tournament&quot;</span><span class="p">)</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E711">
+                    <span class="count sev-2">
+                  6
+               </span>
+                    <strong>E711:</strong> comparison to None should be 'if cond is None:'
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Comparison to None should be 'if cond is None:' (in 4 places):</p>
+
+                        <a href="controler.source.html#l20">
+                            <tt><i>20</i>         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">first_name</span> <span class="o">==</span><span class="kc">None</span> <span class="ow">or</span> <span class="n">born</span> <span class="o">==</span><span class="kc">None</span> <span class="ow">or</span> <span class="nb">id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Comparison to None should be 'if cond is None:' (in 2 places):</p>
+
+                        <a href="controler.source.html#l91">
+                            <tt><i>91</i>                 <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>  <span class="ow">or</span> <span class="n">m</span> <span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="W291">
+                    <span class="count sev-2">
+                  3
+               </span>
+                    <strong>W291:</strong> trailing whitespace
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l2">
+                            <tt><i>2</i> <span class="c1"># lci c&#39;est la view qui stock le controleur. C&#39;est la view qui questionne le controleur </span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l93">
+                            <tt><i>93</i>             <span class="k">else</span><span class="p">:</span>    </tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l132">
+                            <tt><i>132</i>         <span class="c1">#◊◊Le start des round est sensé créer les matchs </span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E203">
+                    <span class="count sev-2">
+                  2
+               </span>
+                    <strong>E203:</strong> whitespace before ',' (and 1 similar)
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <p>Whitespace before ',':</p>
+
+                        <a href="controler.source.html#l35">
+                            <tt><i>35</i>     <span class="k">def</span> <span class="nf">create_tournament</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span> <span class="n">start</span> <span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">address</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <p>Whitespace before ':':</p>
+
+                        <a href="controler.source.html#l97">
+                            <tt><i>97</i>         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span> <span class="p">:</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E265">
+                    <span class="count sev-2">
+                  2
+               </span>
+                    <strong>E265:</strong> block comment should start with '# '
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l12">
+                            <tt><i>12</i>         <span class="c1">#model</span></tt>
+                        </a>
+                    </li>
+                    <li>
+
+                        <a href="controler.source.html#l132">
+                            <tt><i>132</i>         <span class="c1">#◊◊Le start des round est sensé créer les matchs </span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E261">
+                    <span class="count sev-2">
+                  1
+               </span>
+                    <strong>E261:</strong> at least two spaces before inline comment
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l85">
+                            <tt><i>85</i>         <span class="n">tournament</span><span class="o">.</span><span class="n">add_score_to_player</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="c1"># les scores</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E272">
+                    <span class="count sev-2">
+                  1
+               </span>
+                    <strong>E272:</strong> multiple spaces before keyword
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l91">
+                            <tt><i>91</i>                 <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span>  <span class="ow">or</span> <span class="n">m</span> <span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a data-code="E301">
+                    <span class="count sev-2">
+                  1
+               </span>
+                    <strong>E301:</strong> expected 1 blank line, found 0
+
+                </a>
+                <ul class="details">
+                    <li>
+
+                        <a href="controler.source.html#l61">
+                            <tt><i>61</i>     <span class="k">def</span> <span class="nf">end_match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">match</span><span class="p">,</span><span class="n">tournament</span><span class="p">:</span><span class="n">Tournament</span><span class="p">,</span><span class="n">result_match</span><span class="p">:</span><span class="nb">int</span><span class="p">):</span></tt>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</body>
+
+</html>

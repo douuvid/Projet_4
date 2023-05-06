@@ -376,36 +376,6 @@ class Round(object):# capable de faire
         
         if dict["start"] is not None:
             dict["start"]=datetime.fromisoformat(dict["start"])
-            
         if dict["end"] is not None:
             dict["end"]=datetime.fromisoformat(dict["end"])
-            
-            
         return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
-        #On cree un objet round avec les element qu'on trouve dans le json
-        #
-  
-        
-        
-    #rajouter une methode news round 
-    # comptabilite les point 
-
-    
-
-
-# joueur = Player("DAVV","rAVO", "12/12/2000", "293847")
-# player_mana er =PlayerManager()
-# player_manager.add_player(joueur)
-# player_manager.save()
-
-
-# tournois= Tournament("rollan","nohio","12/12/2026","12/12/2046","3","vtoenv")
-# tournois.register_player(joueur)
-# tournament_manager =TournamentManager()
-# tournament_manager.add_tournament(tournois)
-# tournament_manager.save()
-
-
-
-
-# les tournois sont encore ouvert faire une fonction pur ferme les tournours
