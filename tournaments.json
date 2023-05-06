@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [{ "name": "r", "address": "bhnj", "start": "2030-12-12T12:12:00", "end": "2030-12-12T12:14:00", "nb_rounds": 4, "description": "", "round_list": [{ "name": "Round 1", "matchs": [
             [
                 [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 2],
@@ -39,3 +40,5 @@
         [{ "name": "plouf", "first_name": "david", "id": "4321", "born": "2000-12-12" }, 6],
         [{ "name": "zert", "first_name": "azet", "id": "8764", "born": "2000-12-12" }, 10]
     ], "index_current_round": 3, "is_open": true }]
+=======
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a

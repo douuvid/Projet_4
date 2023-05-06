@@ -3,6 +3,7 @@ import sys
 from collections.abc import Callable
 from controler import Controler
 from prettytable import PrettyTable
+<<<<<<< HEAD
 import logging
 
 
@@ -17,25 +18,52 @@ class View(object):
         if  welcome :
             print("Salut , tu es dans le menu qui te facilitera surement ton travail" )
         print("Tu as le choix entre : ") 
+=======
+import os
+
+
+# mettre l'etat des round(exp ==> round[2] en cours , round{} terminer avec le n)
+def cls():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+class View(object):
+    def __init__(self):
+        self.controler = Controler()
+
+#   __________________________________________MENU___________________________________
+    def menu(self, welcome=False):
+
+        cls()
+        if welcome:
+            print("Salut, tu es dans le menu :")
+        print("Tu as le choix entre :")
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         print("1: Joueur")
         print("2: Tournois")
         print("3: Sauvegarde")
 
+<<<<<<< HEAD
         choose= None
         while choose == None:
             choose = self.ask_string("Fait ton choix (met un chiffre)")
 
+=======
+        choose = None
+        if choose is None:
+            choose = self.ask_string("Fait ton choix (met un chiffre)")
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         if choose == "1":
-        # print("ok super te voila dans le menu des joueurs. Tu pourras cree tes joeurs saisir leur nom, prenom et autres ")
             self.player_menu()
         elif choose == "2":
             self.tournament_menu()
-                
+
         elif choose == "3":
-           
+
             try:
                 self.controler.save()
                 print("\nCa a bien ete sauvegarde \n")
+<<<<<<< HEAD
 
             except Exception as error:
                 print(f"Impossible de sauvegarder : {error}")
@@ -44,42 +72,66 @@ class View(object):
             self.exit_back(choose,sys.exit)
 
        #_______________________________PLAYER_____________________________________     
+=======
+            except Exception as error:
+                print(f"Impossible de sauvegarder : {error}")
+        else:
+            self.exit_back(choose, sys.exit)
+
+
+#   _______________________________PLAYER_____________________________________
+
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
     def player_menu(self):
-        print ("\n1 : Consulter\n")
+        print("Menu Player : \n")
+        print("\n1 : Consulter\n")
         print("\n2 : Creation \n")
         print(" \n3 : Recherche par identifiant\n")
         print("")
         choose = None
+<<<<<<< HEAD
         while choose == None:
             choose = self.ask_string("Ta le choix entre consulter ou creer   (pas les deux en meme temps) ")
+=======
+        while choose is None:
+            choose = self.ask_string("Ta le choix entre consulter \n""ou creer fdp (pas les deux en meme temps)")
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
 
         if choose == "1":
             print("")
             self.consulter_player()
 
         elif choose == "2":
+<<<<<<< HEAD
             print("te voila dans le menu creation  , ta cru on etait dans un jeux video ")
             self.player_creation() 
+=======
+            print("te voila dans le menu creation fdp, ta cru on etait dans un jeux video ")
+            self.player_creation()
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
 
         elif choose == "3":
             self.player_data()
         else:
-            #self.exit_back(choose, self.menu)
+            # self.exit_back(choose, self.menu)
             pass
 
     def consulter_player(self):
-        list_player= self.controler.get_list_players()
-        for index,player in enumerate(list_player):
-            print(f"{index + 1}. first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
+        list_player = self.controler.get_list_players()
+        for index, player in enumerate(list_player):
+            print(f"{index + 1}. first name ='{player.first_name}'; name ='{player.name}; \
+                born ='{player.born}'; id = '{player.id}'")
         print(f"Il y a {len(list_player)}  joueur(s) enregistré(s) ")
         self.player_menu()
 
     def player_creation(self):
-        name =first_name=id =born = None
-        while name == None :
+
+        name = first_name = id = born = None
+        while name is None:
             name = self.ask_string("Name: ")
-        while first_name == None :
+        while first_name is None:
             first_name = self.ask_string("first_name")
+<<<<<<< HEAD
         while id == None :
             id= self.ask_string('ID: ')
         while born == None :
@@ -95,22 +147,47 @@ class View(object):
 
         self.player_menu()
         logging.debug(f"Ici c'est le bug test {name}{first_name}{born}{id}")
+=======
+        while id is None:
+            id = self.ask_string('ID: ')
+        while born is None:
+            born = self.ask_date("Born: ", False)
+
+        try:
+            self.controler.add_player(name, first_name, born, id)
+            print(f"Ton joueur : {name} avec l'id :{id} a ete crée fdp")
+        except Exception as error:
+            print("Impossible de creer le joueur : ", error)
+        self.player_menu()
+
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
     def player_data(self,):
         print("Tu souhaites connaitres toutes les info sur un joueur ?")
         id = None
-        while id == None:
-            id= self.ask_string("Rentre son id juste en bas ")
+        while id is None:
+            id = self.ask_string("Rentre son id juste en bas ")
         try:
+<<<<<<< HEAD
 
             player =self.controler.get_player_by_id(id)
             print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'")
+=======
+            player = self.controler.get_player_by_id(id)
+            print(f"first name ='{player.first_name}'; name ='{player.name}; born ='{player.born}'; id = '{player.id}'\
+                ")
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         except Exception as error:
-            print("Impossible d'afficher les données du joueur : ",error)
+            print("Impossible d'afficher les données du joueur : ", error)
         self.player_menu()
 
+<<<<<<< HEAD
     #__________________________ TOURNAMENT ____________________________________
+=======
+#   __________________________ TOURNAMENT ____________________________________
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
 
     def tournament_menu(self):
+        cls()
         print("\nOk Super te voila dans le menu des tournois tu as le choix entre : \n")
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois   \n ")
@@ -119,29 +196,24 @@ class View(object):
         print("\n5: Commencer un round \n ")
         print("\n6: Cloturer \n ")
         choose = None
-        while choose == None:
+        while choose is None:
             choose = self.ask_string("Indique ton choix")
         if choose == "1":
             self.debut_tournois()
         elif choose == "2":
             self.consulter_tournois()
-            
         elif choose == "3":
             self.inscription()
-            
-        elif choose =="4":
+        elif choose == "4":
             self.end_match()
-            
-        elif choose =="5":
+        elif choose == "5":
             self.start_round()
-            
         elif choose == '6':
-            
             tournament = None
-            while tournament == None:
-                tournament=self.ask_tournament()
-               
+            while tournament is None:
+                tournament = self.ask_tournament()
             self.controler.close_tournament(tournament)
+<<<<<<< HEAD
             
             self.display_classment(tournament)
             print(f"Cloture effectué :  {tournament}\n")
@@ -169,18 +241,46 @@ class View(object):
 
             while start == None:
                 start = self.ask_date("Quelle est la date de début du tournois ? : ",True)
+=======
+            print(f"Cloture effectué :  {tournament}")
+        else:
+            self.exit_back(choose, self.menu)
+
+    def debut_tournois(self):
+        print("\nEntre les info pour la creation d'un tournois fdp \n")
+        my_table = PrettyTable()
+        my_table.field_names = ["Nom", "Date de debut", "Date de fin", "Adresse"]
+
+        name, start, end, address = None, None, None, None
+        while name is None:
+            name = self.ask_string("Nom du tournois? svp fdp")
+        while end is None or start >= end:
+            if end is not None:
+                start, end = None, None
+                print("La date de début est supérieure à la date de fin")
+
+            while start is None:
+                start = self.ask_date("Quelle est la date de début du tournois ? : ", True)
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
                 now = datetime.now()
-                if start != None and now > start:
+                if start is not None and now > start:
                     print("Pas de date du passé  ")
                     start = None
 
+<<<<<<< HEAD
             while end == None:
                 end = self.ask_date("Quelle est la date de fin du tournois ? : ",True)
+=======
+            while end is None:
+                end = self.ask_date("Quelle est la date de fin du tournois ? : ", True)
+
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
                 now = datetime.now()
-                if end != None and now > end:
+                if end is not None and now > end:
                     print("Pas de date du passé  ")
                     end = None
 
+<<<<<<< HEAD
         while address == None:
             address = self.ask_string("Quelle est votre adress")
 
@@ -188,41 +288,59 @@ class View(object):
         print(my_table)
         self.controler.create_tournament(name,start,end,address)    
         #self.controler.create_tournament(name = name ,start = start,end=end,address = address)
+=======
+        while address is None:
+            address = self.ask_string("Quelle est votre adress")
+        my_table.add_row([name, start, end, address])
+        print(my_table)
+        self.controler.create_tournament(name, start, end, address)
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
 
     def consulter_tournois(self):
+
         list_tournois = self.controler.get_list_tournement()
+<<<<<<< HEAD
+=======
+
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         if (list_tournois is not None) and len(list_tournois) != 0:
             for list in list_tournois:
                 print(list)
         else:
+<<<<<<< HEAD
            print("\nIl n'y a pas de tournois\n ")
         
+=======
+            print("\nIl n'y a pas de tournois \n ")
+
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
     def inscription(self):
         print("\n Bonjour vous voici dans l'etape de l'inscription")
         try:
-            name,id_player= None,None
-            while name == None:
-                name =self.ask_string("Rentrer le nom  du tournois  ")
-            tournament =self.controler.get_tournement_by_name(name)
-            while id_player == None:
+            name, id_player = None, None
+            while name is None:
+                name = self.ask_string("Rentrer le nom  du tournois  ")
+            tournament = self.controler.get_tournement_by_name(name)
+            while id_player is None:
                 id_player = self.ask_string("Rentrer l'id  du joueur ")
-            player=self.controler.get_player_by_id(id_player)
-            self.controler.register_player_to_tournament(player,tournament)
+            player = self.controler.get_player_by_id(id_player)
+            self.controler.register_player_to_tournament(player, tournament)
             print("le joueur a bien ete inscrit ")
-        except Exception as error: 
-            print(f"Inscription du joueur impossible dans le tournois {name}:",error)
+        except Exception as error:
+            print(f"Inscription du joueur impossible dans le tournois {name}:", error)
             self.tournament_menu()
-            
+
     def start_round(self):
-  
-        tournament = None 
-        while tournament == None:
-            tournament=self.ask_tournament() 
+
+        tournament = None
+        while tournament is None:
+            tournament = self.ask_tournament()
         try:
             self.controler.start_round(tournament)
-        
-        except Exception as error :
+
+        except Exception as error:
             print(f"Impossible de faire le round : {error}")
+<<<<<<< HEAD
     
     def end_match(self):
         tournament = None 
@@ -232,23 +350,45 @@ class View(object):
             last_round =self.controler.get_last_round(tournament)
  
         except Exception as error :
+=======
+
+    def end_match(self):
+        selected_tournament = self.ask_tournament()
+        print(selected_tournament.name)
+        try:
+            last_round = self.controler.get_last_round(selected_tournament)
+
+        except Exception as error:
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
             print(f"Impossible d'obtenir le dernier round  :{error}")
             self.tournament_menu()
             return
         select_match = self.ask_match(last_round)
+<<<<<<< HEAD
 
         tableau_score = [1,2,0]
+=======
+        tableau_score = [1, 2, 0]
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         score = None
-        while score == None :
-            score =self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ") 
-            if score != None and score not in tableau_score :
+        while score is None:
+            score = self.ask_int("\nQui a gagne ?\n 1 : Joueur 1\n 2 : Joueur 2 \n 0 : Egalité ")
+            if score is not None and score not in tableau_score:
                 print("Tu t'es tromper selectionne un chiffre (1,2 ou 0)")
+<<<<<<< HEAD
 
         self.controler.end_match(select_match,tournament, score)
         print("le match est Terminer  ")
 
     #___________________________TOOLS________________________________
     def ask_string(self,question:str):
+=======
+        self.controler.end_match(select_match, selected_tournament, score)
+        print("le match est Terminer  ")
+
+#    ___________________________TOOLS________________________________
+    def ask_string(self, question: str):
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
 
         name = input(question)
         if name == "":
@@ -259,6 +399,7 @@ class View(object):
             return None
         return name
 
+<<<<<<< HEAD
     def ask_date(self,question,time:bool= False):
         format = "%d/%m/%Y"
         date = input(question)
@@ -272,63 +413,90 @@ class View(object):
             if not time:
                 date = date.date()
 
+=======
+    def ask_date(self, question, time: bool = False):
+
+        format = "%d/%m/%Y"
+        date = input(question)
+        if time:
+            format = format + " %H:%M"
+        try:
+            date = datetime.strptime(date, format)
+            if not time:
+                date = date.date()
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         except ValueError:
-            error ="La date doit etre au format jj/mm/aaaa "
-            if time :
+            error = "La date doit etre au format jj/mm/aaaa "
+            if time:
                 error = error + "heure:minute"
             print(error)
             return None
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         return date
-    
-    def ask_int(self,question:str):
+
+    def ask_int(self, question: str):
         try:
             return int(input(question))
-    
-        except Exception as error :
-            print(f"Pas un nombre : ",error)
+
+        except Exception as error:
+            print("Pas un nombre : ", error)
             return None
-    
 
     def ask_tournament(self):
         index = 1
-        open_tournaments=self.controler.get_open_tournaments()
-        if len(open_tournaments) ==0:
+        open_tournaments = self.controler.get_open_tournaments()
+        if len(open_tournaments) == 0:
             print("Aucun tournois en cours ")
             self.tournament_menu()
+<<<<<<< HEAD
             
             return 
+=======
+            return
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         for tournement in open_tournaments:
             print(f"{index} : {tournement.name}")
             index += 1
-        
+
         index_choose = None
-        while index_choose == None:
+        while index_choose is None:
             index_choose = self.ask_int("Quel est le tournois concerné ?")
-            if index_choose != None and (index_choose  > len(open_tournaments) or index_choose <1):
+            if index_choose is not None and (index_choose > len(open_tournaments) or index_choose < 1):
                 index_choose = None
+<<<<<<< HEAD
                 print("Mauvais choix  ")
                 
         return open_tournaments[index_choose -1] 
         
     def ask_match (self,last_round):
         index = 1 
+=======
+                print("Mauvais choix fdp")
+        return open_tournaments[index_choose - 1]
+
+    def ask_match(self, last_round):
+        index = 1
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         if len(last_round.matchs) == 0:
             print('Aucun match en cours')
             self.tournament_menu()
             return
-        
+
         for matchou in last_round.matchs:
-            if matchou[1][0] == None:
+            if matchou[1][0] is None:
                 continue
             print(f"{index}:{matchou[0][0].name} vs {matchou[1][0].name}")
             index += 1
-            
+
         indexou_choose = None
-        while indexou_choose == None :
+        while indexou_choose is None:
             indexou_choose = self.ask_int("Quel est le match concerne")
-            if indexou_choose!= None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
+            if indexou_choose is not None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
                 indexou_choose = None
+<<<<<<< HEAD
                 print("Mauvais choix de match   ")
                 
         
@@ -337,12 +505,20 @@ class View(object):
    
     def exit_back(self,choose:str,back:Callable):
         if choose == "exit" :
+=======
+                print("Mauvais choix de match  fdp")
+        return last_round.matchs[indexou_choose - 1]
+
+    def exit_back(self, choose: str, back: Callable):
+        if choose == "exit":
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
             sys.exit()
         elif choose == "back":
             back()
-            
+
         else:
             print("\nCe choix n'est pas dispo ou n'existe pas \n")
+<<<<<<< HEAD
             
     
 
@@ -363,3 +539,5 @@ class View(object):
 
 
     
+=======
+>>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
