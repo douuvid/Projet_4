@@ -6,7 +6,6 @@ from prettytable import PrettyTable
 import os
 
 
-
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -43,7 +42,6 @@ class View(object):
                 print(f"Impossible de sauvegarder : {error}")
         else:
             self.exit_back(choose, sys.exit)
-
 
 #   _______________________________PLAYER_____________________________________
 

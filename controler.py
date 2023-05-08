@@ -63,17 +63,10 @@ class Controler:
         elif len(match) > tournament.nb_rounds:
             raise Exception("Fin du tournois")
         else:
-<<<<<<< HEAD
-            raise Exception ("Choisi 1,2 ou 0  ")
-        
-        tournament.add_score_to_player(match[0][1],match[0][0])# les scores
-        tournament.add_score_to_player(match[1][1],match[1][0])
-=======
             raise Exception("Choisi 1,2 ou 0 fdp")
         # les scores
         tournament.add_score_to_player(match[0][1], match[0][0])
         tournament.add_score_to_player(match[1][1], match[1][0])
->>>>>>> 74c0f9e7c5c326ae1b397e153ed0caba29f7d80a
         try:
             last_round = tournament.get_last_round()
             for m in last_round.matchs:

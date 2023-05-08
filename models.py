@@ -10,14 +10,14 @@ class Tournament():
                  nb_rounds=4, description="", round_list=None, players=None, index_current_round=-1, is_open=True):
         if round_list is None:
             round_list = []
-        
+
         self.round_list = round_list
-            
-        if players == None:
+
+        if players is None:
             players = []
-        
+
         self.players = players
-        
+
         self.name = name
         self.address = address
         self.start = start
@@ -41,7 +41,7 @@ class Tournament():
             raise Exception("Le precdent round n'est pas terminer ")
 #         ==> Ici on secur que nos  listes (voir si elle existe, )
         round_number = self.index_current_round + 2
-        round = Round("Round " + str(round_number), start = start)
+        round = Round("Round " + str(round_number), start=start)
         players_by_score = self.get_players_by_score()
         self.create_matchs(players_by_score, round)
         self.round_list.append(round)
