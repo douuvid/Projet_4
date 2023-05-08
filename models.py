@@ -239,7 +239,7 @@ class PlayerManager():
 
 
 class Round(object):
-    def __init__(self, name, matchs = None, start: datetime | NoneType = None, end: datetime | NoneType = None):
+    def __init__(self, name, matchs=None, start: datetime | NoneType = None, end: datetime | NoneType = None):
         if matchs is None:
             self.matchs = []
         else:
@@ -281,7 +281,7 @@ class Round(object):
     @classmethod
     def from_dict(self, dict):
         if dict["start"] is not None:
-            dict["start"]=datetime.fromisoformat(dict["start"])
+            dict["start"] = datetime.fromisoformat(dict["start"])
         if dict["end"] is not None:
-            dict["end"]=datetime.fromisoformat(dict["end"])
-        return Round(dict["name"],dict["matchs"],dict["start"],dict["end"])
+            dict["end"] = datetime.fromisoformat(dict["end"])
+        return Round(dict["name"], dict["matchs"], dict["start"], dict["end"])
