@@ -1,6 +1,5 @@
 from datetime import datetime, date
 import json
-from types import NoneType
 from random import shuffle
 
 
@@ -239,7 +238,7 @@ class PlayerManager():
 
 
 class Round(object):
-    def __init__(self, name, matchs=None, start: datetime | NoneType = None, end: datetime | NoneType = None):
+    def __init__(self, name, matchs=None, start=None, end = None):
         if matchs is None:
             self.matchs = []
         else:

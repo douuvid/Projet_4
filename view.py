@@ -17,7 +17,7 @@ class View(object):
 #   __________________________________________MENU___________________________________
     def menu(self, welcome=False):
 
-        cls()
+        #cls()
         if welcome:
             print("Salut, tu es dans le menu :")
         print("Tu as le choix entre :")
@@ -53,14 +53,14 @@ class View(object):
         print("")
         choose = None
         while choose is None:
-            choose = self.ask_string("Ta le choix entre consulter \n""ou creer fdp (pas les deux en meme temps)")
+            choose = self.ask_string("Ta le choix entre consulter \n""ou creer   (pas les deux en meme temps)")
 
         if choose == "1":
             print("")
             self.consulter_player()
 
         elif choose == "2":
-            print("te voila dans le menu creation fdp, ta cru on etait dans un jeux video ")
+            print("te voila dans le menu creation  , ta cru on etait dans un jeux video ")
             self.player_creation()
 
         elif choose == "3":
@@ -91,7 +91,7 @@ class View(object):
 
         try:
             self.controler.add_player(name, first_name, born, id)
-            print(f"Ton joueur : {name} avec l'id :{id} a ete crée fdp")
+            print(f"Ton joueur : {name} avec l'id :{id} a ete crée  ")
         except Exception as error:
             print("Impossible de creer le joueur : ", error)
         self.player_menu()
@@ -112,13 +112,13 @@ class View(object):
 #   __________________________ TOURNAMENT ____________________________________
 
     def tournament_menu(self):
-        cls()
+        #cls()
         print("\nOk Super te voila dans le menu des tournois tu as le choix entre : \n")
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois   \n ")
         print("\n3: Inscrire un joueur au tournois   \n ")
-        print("\n4: Gerer les match   \n ")
-        print("\n5: Commencer un round \n ")
+        print("\n4: Commencer un round  \n ")
+        print("\n5: Gerer les match\n ")
         print("\n6: Cloturer \n ")
         choose = None
         while choose is None:
@@ -130,26 +130,37 @@ class View(object):
         elif choose == "3":
             self.inscription()
         elif choose == "4":
-            self.end_match()
-        elif choose == "5":
             self.start_round()
+        elif choose == "5":
+            self.end_match()
         elif choose == '6':
             tournament = None
             while tournament is None:
                 tournament = self.ask_tournament()
             self.controler.close_tournament(tournament)
             print(f"Cloture effectué :  {tournament}")
+            players=tournament.get_players_by_score()
+            my_table = PrettyTable()
+            my_table.field_names = ["Nom", "Prenom", "Score","Classement"]
+            classment = 1
+            for i in range(len(players)):
+                if len(players[i]) == 0:
+                    continue 
+                for player in players[i]:
+                    my_table.add_row([player.name,player.first_name,len(players)-i-1,classment])
+                classment += 1
+            print(my_table)
         else:
             self.exit_back(choose, self.menu)
 
     def debut_tournois(self):
-        print("\nEntre les info pour la creation d'un tournois fdp \n")
+        print("\nEntre les info pour la creation d'un tournois   \n")
         my_table = PrettyTable()
         my_table.field_names = ["Nom", "Date de debut", "Date de fin", "Adresse"]
 
         name, start, end, address = None, None, None, None
         while name is None:
-            name = self.ask_string("Nom du tournois? svp fdp")
+            name = self.ask_string("Nom du tournois? svp  ")
         while end is None or start >= end:
             if end is not None:
                 start, end = None, None
@@ -177,11 +188,14 @@ class View(object):
         self.controler.create_tournament(name, start, end, address)
 
     def consulter_tournois(self):
-
+        my_table = PrettyTable()
+        my_table.field_names = ["Nom", "Date de debut", "Date de fin", "Adresse"]
+        
         list_tournois = self.controler.get_list_tournement()
         if (list_tournois is not None) and len(list_tournois) != 0:
             for list in list_tournois:
-                print(list)
+                my_table.add_row([list.name, list.start, list.end, list.address])
+            print(my_table)
         else:
             print("\nIl n'y a pas de tournois \n ")
 
@@ -286,7 +300,7 @@ class View(object):
             index_choose = self.ask_int("Quel est le tournois concerné ?")
             if index_choose is not None and (index_choose > len(open_tournaments) or index_choose < 1):
                 index_choose = None
-                print("Mauvais choix fdp")
+                print("Mauvais choix  ")
         return open_tournaments[index_choose - 1]
 
     def ask_match(self, last_round):
@@ -307,7 +321,7 @@ class View(object):
             indexou_choose = self.ask_int("Quel est le match concerne")
             if indexou_choose is not None and (indexou_choose > len(last_round.matchs) or indexou_choose < 1):
                 indexou_choose = None
-                print("Mauvais choix de match  fdp")
+                print("Mauvais choix de match   ")
         return last_round.matchs[indexou_choose - 1]
 
     def exit_back(self, choose: str, back: Callable):
