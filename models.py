@@ -238,7 +238,7 @@ class PlayerManager():
 
 
 class Round(object):
-    def __init__(self, name, matchs=None, start=None, end = None):
+    def __init__(self, name, matchs=None, start=None, end=None):
         if matchs is None:
             self.matchs = []
         else:

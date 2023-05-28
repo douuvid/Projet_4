@@ -17,7 +17,6 @@ class View(object):
 #   __________________________________________MENU___________________________________
     def menu(self, welcome=False):
 
-        #cls()
         if welcome:
             print("Salut, tu es dans le menu :")
         print("Tu as le choix entre :")
@@ -34,7 +33,6 @@ class View(object):
             self.tournament_menu()
 
         elif choose == "3":
-
             try:
                 self.controler.save()
                 print("\nCa a bien ete sauvegarde \n")
@@ -53,14 +51,14 @@ class View(object):
         print("")
         choose = None
         while choose is None:
-            choose = self.ask_string("Ta le choix entre consulter \n""ou creer   (pas les deux en meme temps)")
+            choose = self.ask_string("Ta le choix entre consulter \n""ou creer (pas les deux en meme temps)")
 
         if choose == "1":
             print("")
             self.consulter_player()
 
         elif choose == "2":
-            print("te voila dans le menu creation  , ta cru on etait dans un jeux video ")
+            print("Te voila dans le menu creation  , ta cru on etait dans un jeux video ")
             self.player_creation()
 
         elif choose == "3":
@@ -81,13 +79,13 @@ class View(object):
 
         name = first_name = id = born = None
         while name is None:
-            name = self.ask_string("Name: ")
+            name = self.ask_string("Name : ")
         while first_name is None:
-            first_name = self.ask_string("first_name")
+            first_name = self.ask_string("first_name :")
         while id is None:
-            id = self.ask_string('ID: ')
+            id = self.ask_string('ID : ')
         while born is None:
-            born = self.ask_date("Born: ", False)
+            born = self.ask_date("Born : ", False)
 
         try:
             self.controler.add_player(name, first_name, born, id)
@@ -112,7 +110,7 @@ class View(object):
 #   __________________________ TOURNAMENT ____________________________________
 
     def tournament_menu(self):
-        #cls()
+
         print("\nOk Super te voila dans le menu des tournois tu as le choix entre : \n")
         print("\n1 :Creer un tournois  \n")
         print("\n2: Consulter un tournois   \n ")
@@ -139,15 +137,15 @@ class View(object):
                 tournament = self.ask_tournament()
             self.controler.close_tournament(tournament)
             print(f"Cloture effectué :  {tournament}")
-            players=tournament.get_players_by_score()
+            players = tournament.get_players_by_score()
             my_table = PrettyTable()
-            my_table.field_names = ["Nom", "Prenom", "Score","Classement"]
+            my_table.field_names = ["Nom", "Prenom", "Score", "Classement"]
             classment = 1
             for i in range(len(players)):
                 if len(players[i]) == 0:
-                    continue 
+                    continue
                 for player in players[i]:
-                    my_table.add_row([player.name,player.first_name,len(players)-i-1,classment])
+                    my_table.add_row([player.name, player.first_name, len(players)-i-1, classment])
                 classment += 1
             print(my_table)
         else:
@@ -160,7 +158,7 @@ class View(object):
 
         name, start, end, address = None, None, None, None
         while name is None:
-            name = self.ask_string("Nom du tournois? svp  ")
+            name = self.ask_string("Nom du tournois svp ? ")
         while end is None or start >= end:
             if end is not None:
                 start, end = None, None
@@ -190,7 +188,7 @@ class View(object):
     def consulter_tournois(self):
         my_table = PrettyTable()
         my_table.field_names = ["Nom", "Date de debut", "Date de fin", "Adresse"]
-        
+
         list_tournois = self.controler.get_list_tournement()
         if (list_tournois is not None) and len(list_tournois) != 0:
             for list in list_tournois:
